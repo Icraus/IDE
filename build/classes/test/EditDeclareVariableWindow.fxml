@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.EditWindowController">
+   <padding>
+      <Insets bottom="10.0" />
+   </padding>
+   <center>
+      <GridPane alignment="CENTER" hgap="20.0" vgap="20.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" />
+            <ColumnConstraints halignment="CENTER" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints valignment="CENTER" />
+            <RowConstraints valignment="CENTER" />
+            <RowConstraints valignment="CENTER" />
+            <RowConstraints valignment="CENTER" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="TOP" text="Type">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" text="Name" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtType" alignment="TOP_LEFT" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtName" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtArrayLength" alignment="TOP_LEFT" disable="true" promptText="Array Length" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <CheckBox fx:id="chkIsArray" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleIsArray" text="Array?" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </CheckBox>
+         </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </GridPane>
+   </center>
+   <bottom>
+      <Button fx:id="btnApply" minHeight="44.0" minWidth="81.0" mnemonicParsing="false" onAction="#applyNewValues" text="Apply" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+   </bottom>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</BorderPane>

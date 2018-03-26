@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root prefHeight="184.0" prefWidth="117.0" type="ScrollPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <content>
+      <VBox prefHeight="200.0" prefWidth="111.0">
+         <children>
+            <AnchorPane fx:id="pane" prefHeight="240.0" prefWidth="144.0" />
+         </children>
+      </VBox>
+  </content>
+</fx:root>

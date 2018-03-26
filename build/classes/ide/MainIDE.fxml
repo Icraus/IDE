@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    
+<!--<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ide.MainIDEController">-->
+   <top>
+      <VBox prefHeight="0.0" prefWidth="504.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+              <items>
+                <Button mnemonicParsing="false" text="load tree" />
+                  <Button fx:id="bt2" mnemonicParsing="false" onAction="#addIfStatment" text="create link" />
+                  <Button mnemonicParsing="false" onAction="#removeBlock" text="remove" />
+                  <Button fx:id="generateCodeButton" mnemonicParsing="false" onAction="#generateCode" text="Run" />
+              </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <FlowPane prefHeight="0.0" prefWidth="603.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane />
+         </children>
+      </FlowPane>
+   </bottom>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <TabPane fx:id="mainTabPane">
+               <tabs>
+                  <Tab closable="false" text="Main Canvas">
+                     <content>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" prefViewportHeight="338.0" prefViewportWidth="381.0" scaleShape="false" vbarPolicy="ALWAYS">
+                           <content>
+                            <AnchorPane fx:id="canvas" focusTraversable="true" prefHeight="1.0E22" prefWidth="1.0E29" />
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </center>
+      </BorderPane>
+   </center>
+   <left>
+      <VBox fx:id="libraryVBox" />
+   </left>
+   <right>
+      <VBox prefHeight="564.0" prefWidth="194.0" BorderPane.alignment="CENTER">
+         <children>
+            <TreeView fx:id="projectTree" />
+         </children>
+      </VBox>
+   </right>
+<!--</BorderPane>-->
+<!--</content>-->
+</fx:root>
