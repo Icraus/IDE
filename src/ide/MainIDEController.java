@@ -95,7 +95,10 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            cell.getItem().getUiDelegate().get().requestFocus();
+                            //FIXME fix this
+                            if (cell.getIndex() != 0) {
+                                cell.getItem().getUiDelegate().get().requestFocus();
+                            }
                         }
                     });
 
@@ -103,7 +106,8 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
                 return cell;
             }
         });
-        
+
+        projectTree.rootProperty().bind(model.treeItemsProperty());
 //        removeBlock();
 //        removeBlock();
 
@@ -111,8 +115,8 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
 
     @FXML
     private void addIfStatment() {
-       ClassContentPane n = (ClassContentPane) this.lookup("#GUI" + uuid);
-        Platform.runLater(()->n.requestFocus());
+        ClassContentPane n = (ClassContentPane) this.lookup("#GUI" + uuid);
+        Platform.runLater(() -> n.requestFocus());
     }
 
     @FXML
@@ -131,10 +135,10 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
 //        TextInputDialog d = new TextInputDialog("A");
 //        String name = d.showAndWait().get();
         uuid = model.addClass("A", "Default");
-        
+
         MethodComponent c = new MethodComponent("A", "B", "C");
         model.addMethodByUuid(uuid, c);
-        projectTree.setRoot(model.toTreeItems());
+//        projectTree.setRoot(model.toTreeItems());
     }
 
     @FXML

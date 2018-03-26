@@ -10,6 +10,7 @@ import com.sun.javafx.collections.ObservableListWrapper;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
+import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -45,6 +46,9 @@ public abstract class Component {
         uuid = new SimpleStringProperty();
         parent = new SimpleObjectProperty<>();
         childern = new ObservableListWrapper<>(new ArrayList<>());
+        childern.addListener((Observable e ) -> {
+            ComponentsModel.getInstance().calculateRoot();//FIXME
+        });
         uuid.setValue(getType() + UUID.randomUUID().toString());
     }
     @Override

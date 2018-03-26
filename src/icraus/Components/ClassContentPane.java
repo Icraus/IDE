@@ -9,6 +9,8 @@ import com.icraus.ide.ui.components.DraggableCanvasComponentEventHandler;
 import icraus.Components.util.ClassDialogs;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -71,7 +73,16 @@ public class ClassContentPane extends VBox implements Selectable{
         MenuItem removeFieldItem = new MenuItem("Remove Field");
         addMethodItem.setOnAction(e -> {
             Optional<MethodComponent> res = ClassDialogs.getAddMethodDialog().showAndWait();
-            res.ifPresent(val -> parent.getMethodsList().add(val));
+            res.ifPresent(val -> {
+                try {
+                    ComponentsModel.getInstance().addMethodByUuid(getParentComponentUuid(), val);
+                } catch (IllegalComponent ex) {
+                    Logger.getLogger(ClassContentPane.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ComponentNotFoundException ex) {
+                    Logger.getLogger(ClassContentPane.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
+            });
         });
         addFieldItem.setOnAction(e -> {
         });

@@ -9,6 +9,9 @@ import com.sun.javafx.collections.ObservableMapWrapper;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -26,10 +29,15 @@ public class ComponentsModel {
     private ObservableMap<String, ClassComponent> model;
     private StringProperty currentComponent; //TODO add Current Component Selector
     private static ComponentsModel instance = new ComponentsModel();
+    private ObjectProperty<TreeItem<Component>> root;
 
     private ComponentsModel() {
         this.model = new ObservableMapWrapper<>(new HashMap<>());
         this.currentComponent = new SimpleStringProperty();
+        root = new SimpleObjectProperty<>();
+        model.addListener((Observable e) ->{ 
+            calculateRoot();
+        });
     }
 
     public static ComponentsModel getInstance() {
@@ -70,6 +78,7 @@ public class ComponentsModel {
     public String addClass(String className, String packageName) {
         ClassComponent c = new ClassComponent(className, packageName);
         model.put(c.getUUID(), c);
+        calculateRoot();
         return c.getUUID();
     }
 
@@ -78,7 +87,7 @@ public class ComponentsModel {
         if (parent == null) {
             throw new ComponentNotFoundException();
         }
-        parent.addComponent(c);
+//        parent.addComponent(c);
         return parent.getUUID();
     }
 
@@ -109,15 +118,16 @@ public class ComponentsModel {
         }
 
     }
-
-    public TreeItem<Component> toTreeItems() {
+    public ObjectProperty<TreeItem<Component>> treeItemsProperty(){
+        return root;
+    }
+    public void calculateRoot() {
         ObservableList<ClassComponent> lst = toList();
-        TreeItem<Component> root = new TreeItem<>(new ClassComponent("Asd", "ASD"));
+        root.setValue(new TreeItem<>(new ProjectComponent(projectName)));
         for (Component c : lst) {
             TreeItem<Component> itm = c.toTreeItem();
-            root.getChildren().add(itm);
-        }
-        return root;
+            root.get().getChildren().add(itm);
+        }   
     }
 
     public ObservableList<ClassComponent> toList() {
