@@ -78,9 +78,10 @@ public abstract class Component {
     public String getUUID(){
         return uuid.getValue();
     }
-    public void addComponent(Component c) throws IllegalComponent{
+    public String addComponent(Component c) throws IllegalComponent{
         getChildern().add(c);
         c.setParent(this);
+        return c.getUUID();
     }
     public void removeComponent(String uuid) throws ComponentNotFoundException{
         for(Component c : getChildern()){

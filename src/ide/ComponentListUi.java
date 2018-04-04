@@ -6,18 +6,28 @@
 package ide;
 
 import com.sun.javafx.collections.ObservableMapWrapper;
+import icraus.Components.ComponentNotFoundException;
+import icraus.Components.ComponentPlugin;
+import icraus.Components.ComponentsModel;
+import icraus.Components.IllegalComponent;
+import icraus.Components.IllegalComponentInstantiation;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -27,6 +37,7 @@ import javafx.scene.layout.VBox;
  */
 public class ComponentListUi extends VBox implements MapChangeListener<Object, Object> {
 
+    private ComponentsManager manager = ComponentsManager.getInstance();
     private ObservableMap<String, TitledPane> sections = new ObservableMapWrapper<>(new HashMap());
     @FXML
     private Accordion rootAccordionPane;
@@ -52,20 +63,42 @@ public class ComponentListUi extends VBox implements MapChangeListener<Object, O
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ComponentUi.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+
         sections.addListener((Observable e) -> {
             loadPanes();
         });
-
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
     }
 
-    protected void addDraggableEventHandler(Node lbl) {
-//        lbl.addEventHandler(MouseEvent.DRAG_DETECTED, new DraggableComponentEventHandler());
-
+    protected void addDraggableEventHandler(Node lbl, ComponentPlugin c) {
+        lbl.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            ComponentsModel instance = ComponentsModel.getInstance();
+            try {
+                String uid = instance.addComponent(instance.getCurrentComponent(), c.createComponent());
+                //TODO add component by uuid
+//            try {
+//                UiManager.getInstance().getCurrentTab().get;
+//            } catch (IllegalComponentInstantiation ex) {
+//                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ComponentNotFoundException ex) {
+//                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IllegalComponent ex) {
+//                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            } catch (IllegalComponentInstantiation ex) {
+                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ComponentNotFoundException ex) {
+                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalComponent ex) {
+                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        );
     }
 
     protected void loadPanes() {
@@ -78,8 +111,8 @@ public class ComponentListUi extends VBox implements MapChangeListener<Object, O
     }
 
     protected void addNodeToSection(Node n, String section) {
-        TitledPane section1 = getSection(section);
-        Pane content = (Pane) section1.getContent();
+        TitledPane sec = getSection(section);
+        Pane content = (Pane) sec.getContent();
         content.getChildren().add(n);
     }
 
@@ -97,13 +130,13 @@ public class ComponentListUi extends VBox implements MapChangeListener<Object, O
     }
 
     protected void loadComponenets() {
-//        Collection<ComponentPlugin> coms = ComponentController.getInstance().getAllComponents();
-//        for (ComponentPlugin c : coms) {
-//            Node n = new Label(c.getName(), c.getIcon());
-//            n.setUserData(c.getGUIUUID());
-//            addNodeToSection(n, c.getSection());
-//            addDraggableEventHandler(n);
-//        }
+        ObservableList<ComponentPlugin> lst = manager.getPluginList();
+        for (ComponentPlugin c : lst) {
+            Node n = new Button(c.getComponentName(), c.getIcon());
+
+            addNodeToSection(n, c.getSectionName());
+            addDraggableEventHandler(n, c);
+        }
     }
 
     @FXML

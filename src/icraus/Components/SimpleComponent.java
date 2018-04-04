@@ -10,7 +10,6 @@ import com.icraus.vpl.codegenerator.CodeBlock;
 import com.icraus.vpl.codegenerator.CodeBlockBody;
 import com.icraus.vpl.codegenerator.IfCodeBlockHead;
 import com.icraus.vpl.codegenerator.Statement;
-import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +20,9 @@ import test.IfStatement;
  * @author Shoka
  */
 public class SimpleComponent extends Component{
+
+    public SimpleComponent() {
+    }
 
     
     public SimpleComponent(Statement s, Node delegate) {

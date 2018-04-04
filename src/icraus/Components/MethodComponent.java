@@ -11,7 +11,7 @@ import com.icraus.vpl.codegenerator.DeclareExpression;
 import com.icraus.vpl.codegenerator.MethodCodeBlockHead;
 import com.icraus.vpl.codegenerator.Statement;
 import com.sun.javafx.collections.ObservableListWrapper;
-import ide.MainIDEController;
+import ide.UiManager;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.Observable;
@@ -25,7 +25,7 @@ import javafx.scene.control.TreeItem;
  *
  * @author Shoka
  */
-public class MethodComponent extends Component {
+public class MethodComponent extends Component implements Pageable{
 
     public static final String METHOD_TYPE = "METHOD";
     private StringProperty methodName;
@@ -40,25 +40,22 @@ public class MethodComponent extends Component {
 
     public MethodComponent() {
         super();
+//FIXME Fix this 
         setUiDelegate(new MethodContentPane(this));
-        lineLabel = new MethodLineLabel(this);
-        methodTab = new Tab();
-        methodTab.contentProperty().bindBidirectional(getUiDelegate());
-//TODO Fix this 
-        MainIDEController.getInstance().getMainTabPane().getTabs().add(methodTab);
         accessType = new SimpleStringProperty();
         methodName = new SimpleStringProperty();
         methodReturnType = new SimpleStringProperty();
         params = new ObservableListWrapper<>(new ArrayList<>());
         head = new MethodCodeBlockHead();
         body = new CodeBlockBody();
-
-        CodeBlock blk = new CodeBlock();
-
+        CodeBlock blk = new CodeBlock();    
         blk.setBody(body);
         blk.setHead(head);
         setStatement(blk);
-
+        lineLabel = new MethodLineLabel(this);
+        methodTab = new Tab();
+        methodTab.contentProperty().bindBidirectional(getUiDelegate());
+        UiManager.getInstance().addTab(methodTab);
         createListners();
     }
 
@@ -116,8 +113,8 @@ public class MethodComponent extends Component {
     public void setBody(CodeBlockBody body) {
         this.body = body;
     }
-
-    public Tab getMethodTab() {
+    @Override
+    public Tab getTab() {
         return methodTab;
     }
 

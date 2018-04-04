@@ -63,7 +63,7 @@ public class ClassComponent extends Component {
 
     }
     //TODO Replace it with IOC
-    private void childrenChanged(){
+    private void childrenChanged() {
         getChildern().clear();
         getChildern().addAll(fieldsList);
         getChildern().addAll(methodsList);
@@ -156,11 +156,11 @@ public class ClassComponent extends Component {
     }
 
     @Override
-    public void addComponent(Component c) throws IllegalComponent{
+    public String addComponent(Component c) throws IllegalComponent{
         if(c.getType() == MethodComponent.METHOD_TYPE){
             super.addComponent(c);
             getMethodsList().add((MethodComponent)c); //TODO add children method Listener
-            return;
+            return c.getUUID();
         }
         throw new IllegalComponent();
         //TODO add field Component

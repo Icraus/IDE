@@ -1,6 +1,7 @@
 
 package test;
 
+import icraus.Components.Component;
 import java.util.ArrayList;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -13,7 +14,8 @@ public class ForLoop extends Item {
     private String step;
     public ArrayList<Item> loopContent = new ArrayList<>(5);
     
-    ForLoop(){
+    ForLoop(Component parent){
+        super(parent);
         setText("For");
         setMinWidth(120);
         setMinHeight(40);

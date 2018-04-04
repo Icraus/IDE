@@ -7,6 +7,7 @@ package icraus.Components;
 
 import com.icraus.ide.ui.components.DraggableCanvasComponentEventHandler;
 import icraus.Components.util.ClassDialogs;
+import static ide.UiManager.GUI_QUALIFIER;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Shoka
  */
-public class ClassContentPane extends VBox implements Selectable{
+public class ClassContentPane extends VBox implements Selectable {
 
     @FXML
     private Label classNameLabel;
@@ -37,7 +38,7 @@ public class ClassContentPane extends VBox implements Selectable{
     private VBox methodsVBox;
     @FXML
     private VBox fieldsVBox;
-    private ClassComponent parent;
+    final private ClassComponent parent;
 
     public ClassContentPane(ClassComponent _parent) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ClassContentPane.fxml"));
@@ -51,7 +52,7 @@ public class ClassContentPane extends VBox implements Selectable{
         }
         this.parent = _parent;
         initialize();
-        setId("GUI" + parent.getUUID());
+        setId(GUI_QUALIFIER + parent.getUUID());
         String css = getClass().getResource("styleclass.css").toExternalForm();
         getStylesheets().add(css);
 
@@ -81,7 +82,7 @@ public class ClassContentPane extends VBox implements Selectable{
                 } catch (ComponentNotFoundException ex) {
                     Logger.getLogger(ClassContentPane.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
+
             });
         });
         addFieldItem.setOnAction(e -> {

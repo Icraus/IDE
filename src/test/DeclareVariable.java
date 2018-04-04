@@ -1,6 +1,7 @@
 
 package test;
 
+import icraus.Components.Component;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
@@ -11,7 +12,8 @@ public class DeclareVariable extends Item {
     private Boolean isArray = false;
     private int arrayLength;
             
-    DeclareVariable(){
+    DeclareVariable(Component parent){
+        super(parent);
         setText("Declare");
         setMinWidth(120);
         setMinHeight(40);

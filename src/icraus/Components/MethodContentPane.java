@@ -6,6 +6,8 @@
 package icraus.Components;
 
 import icraus.Components.event.CanvasDragEventHandler;
+import ide.MainIDEController;
+import static ide.UiManager.GUI_QUALIFIER;
 import java.io.IOException;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
@@ -23,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
 public class MethodContentPane extends ScrollPane implements Selectable{
 
     @FXML
-    AnchorPane pane;
+    private AnchorPane pane;
     private MethodComponent parent;
 
     private MethodContentPane() {
@@ -45,7 +47,7 @@ public class MethodContentPane extends ScrollPane implements Selectable{
         parent.getChildern().addListener((Observable e) -> {
             drawContent();
         });
-        setId("GUI" + parent.getUUID());
+        setId(GUI_QUALIFIER + parent.getUUID());
         String css = getClass().getResource("styleclass.css").toExternalForm();
         getStylesheets().add(css);
 
@@ -63,4 +65,6 @@ public class MethodContentPane extends ScrollPane implements Selectable{
     public String getParentComponentUuid() {
         return parent.getUUID();
     }
+
+    
 }

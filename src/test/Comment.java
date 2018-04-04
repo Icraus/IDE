@@ -1,6 +1,7 @@
 
 package test;
 
+import icraus.Components.Component;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
@@ -8,7 +9,8 @@ public class Comment extends Item {
     
     private String comment;
     
-    Comment(){
+    Comment(Component parent){
+        super(parent);
         setText("Comment");
         setMinWidth(120);
         setMinHeight(40);

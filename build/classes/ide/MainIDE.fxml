@@ -51,21 +51,9 @@
       </FlowPane>
    </bottom>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <TabPane fx:id="mainTabPane">
-               <tabs>
-                  <Tab closable="false" text="Main Canvas">
-                     <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" prefViewportHeight="338.0" prefViewportWidth="381.0" scaleShape="false" vbarPolicy="ALWAYS">
-                           <content>
-                            <AnchorPane fx:id="canvas" focusTraversable="true" prefHeight="1.0E22" prefWidth="1.0E29" />
-                           </content>
-                        </ScrollPane>
-                     </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
+            <TabPane fx:id="mainTabPane" />
          </center>
       </BorderPane>
    </center>

@@ -20,7 +20,7 @@ public class MethodLineLabel extends Label {
         parent = d;
         setEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             if(e.getClickCount() == 2){
-                Tab t = parent.getMethodTab();
+                Tab t = parent.getTab();
                 t.getTabPane().getSelectionModel().select(t);
             }
         });

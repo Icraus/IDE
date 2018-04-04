@@ -21,11 +21,11 @@ public class IfStatement extends Item {
 //    String condition;
         public ArrayList<Item> conditionTrue = new ArrayList<>(5);
     public ArrayList<Item> loopContentFalse = new ArrayList<>(5);
-    private Component parent;
-    public IfStatement(Component _parent){
+    public IfStatement(Component parent){
+        super(parent);
         this.builder = new ConditionExpressionBuilder();
         this.condition = new SimpleStringProperty();
-        parent = _parent;
+        
         setText("If");
         setMinHeight(80);
         setMinWidth(80);
@@ -47,7 +47,7 @@ public class IfStatement extends Item {
         });
     }  
     protected void conditionChanged(){
-        CodeBlock value = (CodeBlock) parent.getStatement().getValue();
+        CodeBlock value = (CodeBlock) getUiParent().getStatement().getValue();
         IfCodeBlockHead head = (IfCodeBlockHead) value.getHead();
         builder.appendAndCondition(condition.getValue());
         Expression cond = builder.buildExpression();

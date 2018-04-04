@@ -5,10 +5,6 @@
  */
 package ide;
 
-import icraus.Components.ClassComponent;
-import icraus.Components.Component;
-import icraus.Components.MethodComponent;
-import icraus.Components.SimpleComponent;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

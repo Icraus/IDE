@@ -58,7 +58,7 @@ public class LinkComponent extends Component{
     }
 
     @Override
-    public void addComponent(Component c) throws IllegalComponent{
+    public String addComponent(Component c) throws IllegalComponent{
         throw new IllegalComponent();
     }
     

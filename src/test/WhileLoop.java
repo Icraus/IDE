@@ -1,6 +1,7 @@
 
 package test;
 
+import icraus.Components.Component;
 import java.util.ArrayList;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -10,7 +11,8 @@ public class WhileLoop extends Item {
     private String condition;
     public ArrayList<Item> loopContent = new ArrayList<>(5);
     
-    WhileLoop(){
+    WhileLoop(Component parent){
+        super(parent);
         setText("While");
         setMinWidth(120);
         setMinHeight(40);

@@ -1,6 +1,7 @@
 
 package test;
 
+import icraus.Components.ClassComponent;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,27 +37,27 @@ public class MainWindowController{
     @FXML
     private void addNewItem(ActionEvent event) {
         Button source = (Button)event.getSource();
-        if(source == btnFor)
-            mainMethod.add(new ForLoop());
-        else if(source == btnIf)
-            ;//FIXME
-//            mainMethod.add(new IfStatement());
-        else if(source == btnWhile)
-            mainMethod.add(new WhileLoop());
-        else if(source == btnDo)
-            mainMethod.add(new DoLoop());
-        else if(source == btnDeclare)
-            mainMethod.add(new DeclareVariable());
-        else if(source == btnAssign)
-            mainMethod.add(new AssignValue());
-        else if(source == btnInput)
-            mainMethod.add(new InputValue());
-        else if(source == btnOutput)
-            mainMethod.add(new OutputExpression());
-        else if(source == btnCall)
-            mainMethod.add(new CallMethod());
-        else if(source == btnComment)
-            mainMethod.add(new Comment());
+//        if(source == btnFor)
+//            mainMethod.add(new ForLoop(new ClassComponent()));
+//        else if(source == btnIf)
+//            ;//FIXME
+////            mainMethod.add(new IfStatement());
+//        else if(source == btnWhile)
+//            mainMethod.add(new WhileLoop());
+//        else if(source == btnDo)
+//            mainMethod.add(new DoLoop());
+//        else if(source == btnDeclare)
+//            mainMethod.add(new DeclareVariable());
+//        else if(source == btnAssign)
+//            mainMethod.add(new AssignValue());
+//        else if(source == btnInput)
+//            mainMethod.add(new InputValue());
+//        else if(source == btnOutput)
+//            mainMethod.add(new OutputExpression());
+//        else if(source == btnCall)
+//            mainMethod.add(new CallMethod());
+//        else if(source == btnComment)
+//            mainMethod.add(new Comment());
         redraw();
     }  
     public void initialize(){

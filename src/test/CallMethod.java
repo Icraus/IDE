@@ -1,6 +1,7 @@
 
 package test;
 
+import icraus.Components.Component;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
@@ -8,7 +9,8 @@ public class CallMethod extends Item {
     
     private String method;
     
-    CallMethod(){
+    CallMethod(Component parent){
+        super(parent);
         setText("Call");
         setMinWidth(120);
         setMinHeight(40);

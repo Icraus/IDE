@@ -7,13 +7,12 @@ package ide;
 
 import com.icraus.vpl.codegenerator.ErrorGenerateCodeException;
 import com.sun.javafx.collections.ObservableListWrapper;
-import icraus.Components.ClassContentPane;
 import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentsModel;
 import icraus.Components.IllegalComponent;
 import icraus.Components.MethodComponent;
-import icraus.Components.event.CanvasDragEventHandler;
+import icraus.Components.SimpleComponent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeView;
@@ -27,10 +26,11 @@ import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TabPane;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.cell.TextFieldTreeCell;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
@@ -44,14 +44,16 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
 
     ComponentsModel model = ComponentsModel.getInstance();
     private static MainIDEController instance = new MainIDEController();
-    @FXML
-    private TabPane mainTabPane;
+//    @FXML
+//    private TabPane mainTabPane;
     @FXML
     private VBox libraryVBox;
     @FXML
     TreeView<Component> projectTree;
+//    @FXML
+//    private Pane canvas;
     @FXML
-    private Pane canvas;
+    private BorderPane mainPane;
     @FXML
     private Pane root;
     @FXML
@@ -106,17 +108,27 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
                 return cell;
             }
         });
-
         projectTree.rootProperty().bind(model.treeItemsProperty());
-//        removeBlock();
-//        removeBlock();
-
+        mainPane.centerProperty().setValue(UiManager.getInstance().getMainTabPane());
     }
 
     @FXML
     private void addIfStatment() {
-        ClassContentPane n = (ClassContentPane) this.lookup("#GUI" + uuid);
-        Platform.runLater(() -> n.requestFocus());
+//        String str = model.getAllMethods().get(0).getUUID();
+//        System.out.println(str);
+//        
+//        Node lookup = UiManager.getInstance().getMainTabPane().lookup("#GUI" + str);
+//        lookup.setStyle("-fx-background-color: 'red'");
+//        Component com = SimpleComponent.createIfStatement();
+//        String ty = projectTree.getSelectionModel().getSelectedItem().getValue().getUUID();
+//
+//        try {
+//            model.addComponent(ty, com);
+//        } catch (ComponentNotFoundException ex) {
+//            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalComponent ex) {
+//            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     @FXML
@@ -126,7 +138,7 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
             drawClasses();
         });
         libraryVBox.getChildren().add(comps);
-        canvas.addEventHandler(DragEvent.ANY, new CanvasDragEventHandler());
+//        canvas.addEventHandler(DragEvent.ANY, new CanvasDragEventHandler());
 
     }
 
@@ -157,15 +169,11 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
         System.out.println(s);
     }
 
-    public TabPane getMainTabPane() {
-        return mainTabPane;
-    }
-
     public void drawClasses() {
-        canvas.getChildren().clear();
-        for (Component c : model.toList()) {
-            canvas.getChildren().add(c.getUiDelegate().get());
-        }
+//        canvas.getChildren().clear();
+//        for (Component c : model.toList()) {
+//            canvas.getChildren().add(c.getUiDelegate().get());
+//        }
     }
 
 }
