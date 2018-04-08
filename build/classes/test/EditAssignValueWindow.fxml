@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.EditWindowController">
+<BorderPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.EditWindowController">
    <padding>
       <Insets bottom="10.0" />
    </padding>
@@ -21,26 +21,27 @@
             <ColumnConstraints halignment="CENTER" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
             <RowConstraints valignment="CENTER" />
             <RowConstraints valignment="CENTER" />
          </rowConstraints>
          <children>
-            <Label fx:id="forLoopGridPane1" alignment="CENTER" contentDisplay="TOP" text="Variable">
+            <Label fx:id="forLoopGridPane1" alignment="CENTER" contentDisplay="TOP" text="Variable" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="forLoopGridPane" alignment="CENTER" contentDisplay="TOP" text="Value" GridPane.rowIndex="1">
+            <Label fx:id="forLoopGridPane" alignment="CENTER" contentDisplay="TOP" text="Value" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="txtVariable" alignment="TOP_LEFT" GridPane.columnIndex="1">
+            <TextField fx:id="txtVariable" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtValue" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="txtValue" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

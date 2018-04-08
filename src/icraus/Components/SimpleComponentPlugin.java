@@ -9,31 +9,57 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 
-
 public class SimpleComponentPlugin implements ComponentPlugin {
 
     private String componentName;
     private String sectionName;
     private Node graphic;
     private Component component;
+    private ComponentFactory componentFactory;
+    private ComponentInializer initalizer;
 
-    public SimpleComponentPlugin(String componentName, String sectionName, Component component, Node graphic) {
+    public SimpleComponentPlugin(String componentName, String sectionName, Component component, Node graphic, ComponentFactory factory, ComponentInializer initC) {
         this.componentName = componentName;
         this.sectionName = sectionName;
         this.graphic = graphic;
         this.component = component;
+        this.componentFactory = factory;
+        this.initalizer = initC;
     }
-    
+
+    public SimpleComponentPlugin() {
+    }
+
+    public SimpleComponentPlugin(String componentName, String sectionName, Node graphic, ComponentFactory factory, ComponentInializer initC) {
+        this(componentName, sectionName, null, graphic, factory, initC);
+    }
+
+    public SimpleComponentPlugin(String componentName, String sectionName, Node graphic, ComponentFactory factory) {
+        this(componentName, sectionName, graphic, factory, (c)->{});
+    }
+
+    public SimpleComponentPlugin(String componentName, String sectionName, Component component, Node graphic) {
+        this(componentName, sectionName, component, graphic, null, null);
+        setComponentFactory(() -> {
+            try {
+                Component instance = component.getClass().newInstance();
+                return instance;
+            } catch (InstantiationException | IllegalAccessException ex) {
+                Logger.getLogger(SimpleComponentPlugin.class.getName()).log(Level.SEVERE, null, ex);
+                throw new IllegalComponentInstantiation("Can't create " + getComponentName());
+            }
+        });
+        setInitalizer((c) -> {
+
+        });
+    }
+
     @Override
-    public Component createComponent() throws IllegalComponentInstantiation{
-        try {
-            Component tmp = component.getClass().newInstance();
-            initalize(tmp);
-            return tmp;
-        } catch (InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(SimpleComponentPlugin.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IllegalComponentInstantiation("Can't create " + getComponentName());
-        } 
+
+    public Component createComponent() throws IllegalComponentInstantiation {
+        Component tmp = getComponentFactory().createComponent();
+        initalize(tmp);
+        return tmp;
     }
 
     @Override
@@ -53,7 +79,7 @@ public class SimpleComponentPlugin implements ComponentPlugin {
 
     @Override
     public void initalize(Component n) {
-        
+        initalizer.initalize(n);
     }
 
     public void setComponentName(String componentName) {
@@ -71,5 +97,25 @@ public class SimpleComponentPlugin implements ComponentPlugin {
     public void setComponent(Component component) {
         this.component = component;
     }
-    
+
+    public ComponentFactory getComponentFactory() {
+        return componentFactory;
+    }
+
+    public void setComponentFactory(ComponentFactory componentFactory) {
+        this.componentFactory = componentFactory;
+    }
+
+    public ComponentInializer getInitalizer() {
+        return initalizer;
+    }
+
+    public void setInitalizer(ComponentInializer initalizer) {
+        this.initalizer = initalizer;
+    }
+
+    public Component getComponent() {
+        return component;
+    }
+
 }

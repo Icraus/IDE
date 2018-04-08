@@ -1,34 +1,41 @@
-
 package test;
 
-import icraus.Components.Component;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import com.icraus.vpl.codegenerator.GrammerConstants;
+import com.icraus.vpl.codegenerator.SimpleStatement;
+import icraus.Components.SimpleComponent;
+import javafx.stage.Stage;
 
 public class OutputExpression extends Item {
-    
+
     private String expression;
     
-    OutputExpression(Component parent){
+    public OutputExpression(SimpleComponent parent) {
         super(parent);
         setText("Output");
         setMinWidth(120);
         setMinHeight(40);
         getStyleClass().add("outputExpressionStyle");
-        
-        setContextMenu(new ItemContextMenu(8, getUUID()));
-        
-        setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY))
-                if (mouseEvent.getClickCount() == 2)
-                    new EditItem(8, getUUID());
+        setOnAction(e -> {
+            EditOutputExpressionWindowBase d = new EditOutputExpressionWindowBase();
+            Stage stg = createDialog(d);
+            d.btnApply.setOnAction(c -> {
+                parametersChanged(d.txtExpression.getText());
+                stg.close();
+            });
+            stg.showAndWait();
         });
-    }  
-    
+    }
+
     public void setExpression(String expression) {
         this.expression = expression;
     }
+
     public String getExpression() {
         return expression;
+    }
+
+    private void parametersChanged(String text) {
+        SimpleStatement stmnt = (SimpleStatement) getParentComponent().getStatement().get();
+        stmnt.setStatementString(GrammerConstants.STAT_OUTPUT_OP + GrammerConstants.OP_PARAN_START + text + GrammerConstants.OP_PARAN_END);
     }
 }

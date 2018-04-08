@@ -5,12 +5,12 @@
  */
 package icraus.Components;
 
+import com.icraus.ide.ui.components.DraggableCanvasComponentEventHandler;
 import com.sun.javafx.collections.ObservableListWrapper;
 import com.sun.javafx.collections.ObservableMapWrapper;
+import ide.UiManager;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -20,22 +20,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
  * @author Shoka
  */
 public class ComponentsModel {
-    private ProjectComponent project;
-    private ObservableMap<String, ClassComponent> model;
+
+    private ObservableMap<String, ProjectComponent> model;
     private StringProperty currentComponent; //TODO add Current Component Selector
     private static ComponentsModel instance = new ComponentsModel();
     private ObjectProperty<TreeItem<Component>> root;
 
     private ComponentsModel() {
-        this.project = new ProjectComponent("Java");
-        this.currentComponent = new SimpleStringProperty();
         this.model = new ObservableMapWrapper<>(new HashMap<>());
+        this.currentComponent = new SimpleStringProperty();
         root = new SimpleObjectProperty<>();
         model.addListener((Observable e) -> {
             calculateRoot();
@@ -47,34 +47,30 @@ public class ComponentsModel {
     }
 
     public Component getComponentByUuid(String uuid) throws ComponentNotFoundException {
-        if(project.getUUID() == uuid)
-            return project;
-        ClassComponent comp = model.get(uuid);
+        ProjectComponent comp = model.get(uuid);
         if (comp != null) {
             return comp;
         }
-        Queue<Component> q = new LinkedList<>();
-        ObservableList<ClassComponent> lst = toList();
-        q.addAll(lst);
-        Component tmp = null;
-        while (!q.isEmpty()) {
-            Component top = q.poll();
-            if (top.getUUID() == uuid) {
-                tmp = top;
-                break;
+        ObservableList<ProjectComponent> lst = toList();
+        for (ProjectComponent c : lst) {
+            try {
+                Component f = c.getComponentByUuid(uuid);
+                if (f != null) {
+                    return f;
+                }
+            } catch (ComponentNotFoundException ex) {
+
             }
-            q.addAll(top.getChildern());
+
         }
-        if (tmp == null) {
-            throw new ComponentNotFoundException();
-        }
-        return tmp;
+        throw new ComponentNotFoundException();
     }
 
-    public String addClass(String className, String packageName) {
-        ClassComponent c = new ClassComponent(className, packageName);
+    public String addProject(String projectName) {
+        ProjectComponent c = new ProjectComponent(projectName);
         model.put(c.getUUID(), c);
-        calculateRoot();
+        addComponentHelper(c);
+
         return c.getUUID();
     }
 
@@ -84,23 +80,34 @@ public class ComponentsModel {
             throw new ComponentNotFoundException();
         }
         parent.addComponent(c);
+        addComponentHelper(c);
         return parent.getUUID();
+    }
+
+    protected void addComponentHelper(Component c) {
+        if (c instanceof Pageable) {
+            Pageable p = (Pageable) c;
+            UiManager.getInstance().addTab(p.getTab());
+        }
+        //         FIXME addEvenetHandler for new Components 
+        if (c.getUiDelegate().getValue() instanceof DraggableComponent) {
+            c.getUiDelegate().getValue().addEventHandler(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
+        }
+
     }
 
     public boolean removeComponetByUuid(String uuid) throws ComponentNotFoundException {
         //TODO add remove by finding
-        ClassComponent comp = model.remove(uuid);
-        if (comp != null) {
-            return true;
-        }
-        throw new ComponentNotFoundException();
+        Component c = getComponentByUuid(uuid);
+        c.getParent().getChildern().remove(c);
+        return true;
     }
 
     public ObservableList<MethodComponent> getAllMethods() {
         ObservableList<MethodComponent> lst = new ObservableListWrapper<>(new ArrayList<>());
         for (String s : model.keySet()) {
-            ClassComponent get = model.get(s);
-            lst.addAll(get.getMethodsList());
+            ProjectComponent get = model.get(s);
+            lst.addAll(get.getAllMethods());
         }
         return lst;
     }
@@ -113,18 +120,18 @@ public class ComponentsModel {
     }
 
     public ClassComponent getClassByName(String name) throws ComponentNotFoundException {
-        ObservableList<ClassComponent> lst = toList();
-        for (ClassComponent c : lst) {
-            if (c.getClassName().getValue() == name) {
-                return c;
-            }
+        ObservableList<ProjectComponent> lst = toList();
+        for (ProjectComponent c : lst) {
+//FIXME fix return of class name
+            return c.getClassByName(name);
         }
+
         throw new ComponentNotFoundException("Class Not Found");
     }
 
     public String addMethodByUuid(String uuid, MethodComponent c) throws IllegalComponent, ComponentNotFoundException {
         try {
-            return model.get(uuid).addComponent(c);
+            return addComponent(uuid, c);
         } catch (NullPointerException ex) {
             throw new ComponentNotFoundException();
         }
@@ -136,29 +143,45 @@ public class ComponentsModel {
     }
 
     public void calculateRoot() {
-        ObservableList<ClassComponent> lst = toList(); //FIXME change project name
-        root.setValue(new TreeItem<>(project));
+        ObservableList<ProjectComponent> lst = toList(); //FIXME change project name
+        root.setValue(new TreeItem<>(new SimpleComponent()));
+
         for (Component c : lst) {
             TreeItem<Component> itm = c.toTreeItem();
             root.get().getChildren().add(itm);
         }
+
+//        ObservableList<ProjectComponent> lst = toList(); //TODO migrate to single root calculation
+//        root.setValue(new TreeItem<>(new SimpleComponent()));
+//        for (Component c : lst) {
+//            TreeItem<Component> itmRoot = new TreeItem<>(c);
+//            Queue<Component> q = new LinkedList<>();
+//            q.addAll(c.getChildern());
+//            while (!q.isEmpty()) {
+//                Component cin = q.poll();
+//                TreeItem<Component> itm = new TreeItem<>(cin);
+//                q.addAll(cin.getChildern());
+//                itmRoot.getChildren().add(itm);
+//            }
+//        }
     }
 
-    public ObservableList<ClassComponent> toList() {
+    public ObservableList<ProjectComponent> toList() {
         return FXCollections.observableArrayList(model.values());
     }
 
-    public ObservableMap<String, ClassComponent> getModel() {
+    public ObservableMap<String, ProjectComponent> getModel() {
         return model;
     }
 
-    public void setModel(ObservableMap<String, ClassComponent> model) {
+    public void setModel(ObservableMap<String, ProjectComponent> model) {
         this.model = model;
     }
-    
+
     public StringProperty currentComponentProperty() {
         return currentComponent;
     }
+
     public String getCurrentComponent() {
         return currentComponent.getValue();
     }
@@ -166,6 +189,7 @@ public class ComponentsModel {
     public void setCurrentComponent(StringProperty currentComponent) {
         this.currentComponent = currentComponent;
     }
+
     public void setCurrentComponent(String currentComponent) {
         this.currentComponent.setValue(currentComponent);
     }

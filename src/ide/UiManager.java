@@ -5,9 +5,11 @@
  */
 package ide;
 
+import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentsModel;
 import icraus.Components.Pageable;
+import icraus.Components.ScrollAnchorPane;
 import icraus.Components.Selectable;
 import icraus.Components.event.CanvasDragEventHandler;
 import java.util.logging.Level;
@@ -26,43 +28,49 @@ import javafx.scene.layout.AnchorPane;
  * @author Shoka
  */
 public class UiManager {
+
     public static final String GUI_QUALIFIER = "GUI";
     private static UiManager instance = new UiManager();
-    private ObservableList<Tab> methodsTabs;   
+    private ObservableList<Tab> methodsTabs;
     private TabPane mainTabPane;
+
     public static UiManager getInstance() {
         return instance;
     }
     private final ComponentsModel model;
-    private final Tab mainTab;
-    
+//    private final Tab mainTab;
+
     private UiManager() {
         this.mainTabPane = new TabPane();
-        mainTabPane.getTabs().clear();
         this.methodsTabs = mainTabPane.getTabs();
         mainTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         methodsTabs.clear();
-        mainTab = new MainTab();
-        AnchorPane pane = new AnchorPane();
-        pane.addEventHandler(DragEvent.ANY, new CanvasDragEventHandler());
-        mainTab.setContent(new ScrollPane(pane));
-        addTab(mainTab);
         model = ComponentsModel.getInstance();
-        mainTabPane.getSelectionModel().selectedItemProperty().addListener((Observable e )-> {
-            Selectable content = (Selectable)((ScrollPane)mainTabPane.getSelectionModel().getSelectedItem().getContent());
-            ComponentsModel.getInstance().setCurrentComponent(content.getParentComponentUuid());
+        mainTabPane.getSelectionModel().selectedItemProperty().addListener((Observable e) -> {
+            try {
+                Node c = mainTabPane.getSelectionModel().getSelectedItem().getContent();
+                ScrollPane p = (ScrollPane) c;
+                Selectable n = (Selectable) p;
+                model.setCurrentComponent(n.getParentComponentUuid());
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
         });
     }
-    public Node selectElementByUuId(String uuid){
+
+    public Node selectElementByUuId(String uuid) {
         return getMainTabPane().lookup("#" + GUI_QUALIFIER + uuid);
     }
+
     public ObservableList<Tab> getMethodsTabs() {
         return methodsTabs;
     }
-    public void addTab(Tab t){
+
+    public void addTab(Tab t) {
         methodsTabs.add(t);
     }
-    public Tab selectTabByUuid(String uuid){
+
+    public Tab selectTabByUuid(String uuid) {
         try {
             Pageable comp = (Pageable) ComponentsModel.getInstance().getComponentByUuid(uuid);
             Tab methodTab = comp.getTab();
@@ -72,9 +80,11 @@ public class UiManager {
         }
         return null;
     }
-    public Tab getCurrentTab(){
+
+    public Tab getCurrentTab() {
         return mainTabPane.getSelectionModel().getSelectedItem();
     }
+
     public TabPane getMainTabPane() {
         return mainTabPane;
     }
@@ -83,6 +93,4 @@ public class UiManager {
         this.mainTabPane = mainTabPane;
     }
 
-    
-     
 }

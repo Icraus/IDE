@@ -28,8 +28,8 @@ public class ClassComponent extends Component {
     
     public ClassComponent() {
         super();
-        className = new SimpleStringProperty();
-        packageName = new SimpleStringProperty();
+        className = new SimpleStringProperty("");
+        packageName = new SimpleStringProperty("");
         head = new ClassCodeBlockHead();
         body = new CodeBlockBody();
         methodsList = new ObservableListWrapper<>(new ArrayList<>());

@@ -9,6 +9,8 @@ package icraus.Components;
  *
  * @author Shoka
  */
-public interface UiElement {
-    public String getUuid();
+@FunctionalInterface
+public interface ComponentInializer {
+    public void initalize(Component n);
+
 }

@@ -6,6 +6,7 @@
 package ide;
 
 import com.sun.javafx.collections.ObservableMapWrapper;
+import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentPlugin;
 import icraus.Components.ComponentsModel;
@@ -24,7 +25,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
@@ -80,22 +83,9 @@ public class ComponentListUi extends VBox implements MapChangeListener<Object, O
             ComponentsModel instance = ComponentsModel.getInstance();
             try {
                 String uid = instance.addComponent(instance.getCurrentComponent(), c.createComponent());
-                //TODO add component by uuid
-//            try {
-//                UiManager.getInstance().getCurrentTab().get;
-//            } catch (IllegalComponentInstantiation ex) {
-//                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ComponentNotFoundException ex) {
-//                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (IllegalComponent ex) {
-//                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-            } catch (IllegalComponentInstantiation ex) {
-                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ComponentNotFoundException ex) {
-                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalComponent ex) {
-                Logger.getLogger(ComponentListUi.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalComponentInstantiation | ComponentNotFoundException | IllegalComponent ex) {
+                ex.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Error Adding Component", ButtonType.OK).showAndWait();
             }
         }
         );

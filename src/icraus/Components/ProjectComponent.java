@@ -6,9 +6,7 @@
 package icraus.Components;
 
 import com.sun.javafx.collections.ObservableListWrapper;
-import com.sun.javafx.collections.ObservableMapWrapper;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import javafx.beans.Observable;
@@ -18,11 +16,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TreeItem;
-import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -31,25 +26,27 @@ import javafx.scene.layout.AnchorPane;
 public class ProjectComponent extends Component implements Pageable {
 
     private StringProperty projectName;
-    private ObservableMap<String, ClassComponent> model;
+//    private ObservableMap<String, ClassComponent> model;
     private ObjectProperty<TreeItem<Component>> root;
 
     public static final String PROJECT_TPYE = "PROJECT_TPYE";
     private ObjectProperty<Tab> projectMainTab;
 
     public ProjectComponent(String name) {
+        super();
         projectName = new SimpleStringProperty();
         projectName.setValue(name);
-        ScrollPane pane = new ScrollPane(new AnchorPane());
+        ScrollAnchorPane pane = new ScrollAnchorPane(this);
         Tab tab = new Tab("", pane);
         setUiDelegate(pane);
         tab.textProperty().bindBidirectional(projectName);
         projectMainTab = new SimpleObjectProperty<>(tab);
-        this.model = new ObservableMapWrapper<>(new HashMap<>());
+//        this.model = new ObservableMapWrapper<>(new HashMap<>());
         root = new SimpleObjectProperty<>();
-        model.addListener((Observable e) -> {
+        getChildern().addListener((Observable e) -> {
             calculateRoot();
         });
+
     }
 
     @Override
@@ -63,12 +60,13 @@ public class ProjectComponent extends Component implements Pageable {
     }
 
     public Component getComponentByUuid(String uuid) throws ComponentNotFoundException {
-        if(getUUID() == uuid)
+        if (getUUID() == uuid) {
             return this;
-        ClassComponent comp = model.get(uuid);
-        if (comp != null) {
-            return comp;
         }
+//        ClassComponent comp = model.get(uuid);
+//        if (comp != null) {
+//            return comp;
+//        }
         Queue<Component> q = new LinkedList<>();
         ObservableList<ClassComponent> lst = toList();
         q.addAll(lst);
@@ -87,10 +85,9 @@ public class ProjectComponent extends Component implements Pageable {
         return tmp;
     }
 
-    public String addClass(String className, String packageName) {
+    public String addClass(String className, String packageName) throws IllegalComponent {
         ClassComponent c = new ClassComponent(className, packageName);
-        model.put(c.getUUID(), c);
-        calculateRoot();
+        addComponent(c);
         return c.getUUID();
     }
 
@@ -105,18 +102,18 @@ public class ProjectComponent extends Component implements Pageable {
 
     public boolean removeComponetByUuid(String uuid) throws ComponentNotFoundException {
         //TODO add remove by finding
-        ClassComponent comp = model.remove(uuid);
+        ClassComponent comp = (ClassComponent) getComponentByUuid(uuid);
         if (comp != null) {
             return true;
         }
-        throw new ComponentNotFoundException();
+        return false;
     }
 
     public ObservableList<MethodComponent> getAllMethods() {
         ObservableList<MethodComponent> lst = new ObservableListWrapper<>(new ArrayList<>());
-        for (String s : model.keySet()) {
-            ClassComponent get = model.get(s);
-            lst.addAll(get.getMethodsList());
+        ObservableList<ClassComponent> clst = toList();
+        for (ClassComponent c : clst) {
+            lst.addAll(c.getMethodsList());
         }
         return lst;
     }
@@ -139,11 +136,7 @@ public class ProjectComponent extends Component implements Pageable {
     }
 
     public String addMethodByUuid(String uuid, MethodComponent c) throws IllegalComponent, ComponentNotFoundException {
-        try {
-            return model.get(uuid).addComponent(c);
-        } catch (NullPointerException ex) {
-            throw new ComponentNotFoundException();
-        }
+        return getComponentByUuid(uuid).addComponent(c);
 
     }
 
@@ -161,15 +154,22 @@ public class ProjectComponent extends Component implements Pageable {
     }
 
     public ObservableList<ClassComponent> toList() {
-        return FXCollections.observableArrayList(model.values());
+        ObservableList<Component> lst = getChildern();
+        ObservableList<ClassComponent> clst = FXCollections.observableArrayList();
+        for(Component c : lst){
+            clst.add((ClassComponent)c);
+        }
+        return clst;
     }
 
-    
-//    @Override
-//    public void addComponent(Component c) throws IllegalComponent {
-//        super.addComponent(c); //To change body of generated methods, choose Tools | Templates.
-//        //TODO add ProjectCompoent
-//    }
+    @Override
+    public String addComponent(Component c) throws IllegalComponent {
+        if (c.getType() == ClassComponent.CLASS_TYPE) {
+            return super.addComponent(c);
+        } //To change body of generated methods, choose Tools | Templates.
+        throw new IllegalComponent("Not a Class Type");
+    }
+
     @Override
     public TreeItem<Component> toTreeItem() {
         return root.getValue();
@@ -179,4 +179,6 @@ public class ProjectComponent extends Component implements Pageable {
     public Tab getTab() {
         return projectMainTab.getValue();
     }
+
+    
 }

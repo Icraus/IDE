@@ -19,9 +19,7 @@ public class DoLoop extends Item {
         setContextMenu(new ItemContextMenu(4, getUUID()));
         
         setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY))
-                if (mouseEvent.getClickCount() == 2)
-                    new EditItem(4, getUUID());
+            //FIXME add Handler
         });
     }  
     

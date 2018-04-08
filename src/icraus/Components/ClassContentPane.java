@@ -5,7 +5,6 @@
  */
 package icraus.Components;
 
-import com.icraus.ide.ui.components.DraggableCanvasComponentEventHandler;
 import icraus.Components.util.ClassDialogs;
 import static ide.UiManager.GUI_QUALIFIER;
 import java.io.IOException;
@@ -28,7 +27,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Shoka
  */
-public class ClassContentPane extends VBox implements Selectable {
+public class ClassContentPane extends VBox implements Selectable, DraggableComponent {
 
     @FXML
     private Label classNameLabel;
@@ -38,7 +37,7 @@ public class ClassContentPane extends VBox implements Selectable {
     private VBox methodsVBox;
     @FXML
     private VBox fieldsVBox;
-    final private ClassComponent parent;
+    final private ClassComponent parentComponent;
 
     public ClassContentPane(ClassComponent _parent) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ClassContentPane.fxml"));
@@ -50,17 +49,18 @@ public class ClassContentPane extends VBox implements Selectable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.parent = _parent;
+        this.parentComponent = _parent;
         initialize();
-        setId(GUI_QUALIFIER + parent.getUUID());
+        setId(GUI_QUALIFIER + parentComponent.getUUID());
         String css = getClass().getResource("styleclass.css").toExternalForm();
         getStylesheets().add(css);
 
     }
 
     private void drawMethods() {
+        
         methodsVBox.getChildren().clear();
-        ObservableList<MethodComponent> lst = parent.getMethodsList();
+        ObservableList<MethodComponent> lst = parentComponent.getMethodsList();
         for (MethodComponent mc : lst) {
             methodsVBox.getChildren().add(mc.getLineLabel());
         }
@@ -99,10 +99,10 @@ public class ClassContentPane extends VBox implements Selectable {
     private void createMouseEvent() {
         this.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             if (e.getClickCount() == 2) {
-                TextInputDialog d = new TextInputDialog(parent.getClassName().getValue());
+                TextInputDialog d = new TextInputDialog(parentComponent.getClassName().getValue());
                 Optional<String> res = d.showAndWait();
                 res.ifPresent(v -> {
-                    parent.setClassName(v);
+                    parentComponent.setClassName(v);
                 });
             }
         });
@@ -110,18 +110,17 @@ public class ClassContentPane extends VBox implements Selectable {
 
 //    @FXML
     private void initialize() {
-        parent.getMethodsList().addListener((Observable e) -> {
+        parentComponent.getMethodsList().addListener((Observable e) -> {
             drawMethods();
         });
         createContextMenu();
         createMouseEvent();
-        this.addEventHandler(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
-        classNameLabel.textProperty().bindBidirectional(parent.getClassName());
+        classNameLabel.textProperty().bindBidirectional(parentComponent.getClassName());
 
     }
 
     @Override
     public String getParentComponentUuid() {
-        return parent.getUUID();
+        return parentComponent.getUUID();
     }
 }

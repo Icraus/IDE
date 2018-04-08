@@ -6,18 +6,41 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="262.0" prefWidth="125.0" styleClass="class-content-pane" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="327.0" prefWidth="202.0" styleClass="class-content-pane" stylesheets="@styleclass.css" type="VBox" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox fx:id="headVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+        <VBox fx:id="headVBox" alignment="CENTER" prefHeight="115.0" prefWidth="202.0" spacing="20.0">
          <children>
-            <Label fx:id="classNameLabel" alignment="CENTER" contentDisplay="CENTER" text="Class Name" textAlignment="CENTER" />
+            <Label fx:id="classNameLabel" alignment="CENTER" contentDisplay="CENTER" text="Class Name" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font></Label>
          </children></VBox>
-        <VBox fx:id="fieldsVBox" prefHeight="200.0" prefWidth="100.0" />
-        <VBox fx:id="methodsVBox" prefHeight="200.0" prefWidth="100.0" />
+        <VBox fx:id="fieldsVBox" prefHeight="200.0" prefWidth="178.0" spacing="5.0">
+         <children>
+            <Label fx:id="classAttributesLabel" alignment="CENTER" contentDisplay="CENTER" text="Attributes" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding></VBox>
+        <VBox fx:id="methodsVBox" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+         <children>
+            <Label fx:id="classMethodsLabel" alignment="CENTER" contentDisplay="CENTER" text="Methods" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding></VBox>
     </children>
 </fx:root>

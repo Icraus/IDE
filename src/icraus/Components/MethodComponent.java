@@ -11,7 +11,6 @@ import com.icraus.vpl.codegenerator.DeclareExpression;
 import com.icraus.vpl.codegenerator.MethodCodeBlockHead;
 import com.icraus.vpl.codegenerator.Statement;
 import com.sun.javafx.collections.ObservableListWrapper;
-import ide.UiManager;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.Observable;
@@ -19,7 +18,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TreeItem;
 
 /**
  *
@@ -55,7 +53,6 @@ public class MethodComponent extends Component implements Pageable{
         lineLabel = new MethodLineLabel(this);
         methodTab = new Tab();
         methodTab.contentProperty().bindBidirectional(getUiDelegate());
-        UiManager.getInstance().addTab(methodTab);
         createListners();
     }
 
@@ -152,15 +149,15 @@ public class MethodComponent extends Component implements Pageable{
         return getMethodName().getValue();
     }
 
-    @Override
-    public TreeItem<Component> toTreeItem() {
-        TreeItem<Component> root = new TreeItem<>(this);
-        for (Component itm : getChildern()) {
-            TreeItem<Component> sim = new TreeItem<>(itm);
-            root.getChildren().add(sim);
-        }
-        return root;
-    }
+//    @Override
+//    public TreeItem<Component> toTreeItem() {
+//        TreeItem<Component> root = new TreeItem<>(this);
+//        for (Component itm : getChildern()) {
+//            TreeItem<Component> sim = new TreeItem<>(itm);
+//            root.getChildren().add(sim);
+//        }
+//        return root;
+//    }
 
     protected void createListners() {
         methodTab.contentProperty().bindBidirectional(getUiDelegate());

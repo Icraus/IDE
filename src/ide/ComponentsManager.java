@@ -8,8 +8,7 @@ package ide;
 import com.sun.javafx.collections.ObservableListWrapper;
 import icraus.Components.ClassComponent;
 import icraus.Components.ComponentPlugin;
-import icraus.Components.IfComponentPlugin;
-import icraus.Components.MethodComponent;
+import icraus.Components.ComponentPluginFactories;
 import icraus.Components.SimpleComponentPlugin;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
@@ -29,12 +28,19 @@ public class ComponentsManager {
     
 
     private ComponentsManager() {
-        SimpleComponentPlugin plugin = new SimpleComponentPlugin("Class", "Containers", new ClassComponent(), null);
+        ComponentPlugin plugin = new SimpleComponentPlugin("Class", "Containers", new ClassComponent(), null);
         addComponent(plugin);
-        plugin = new IfComponentPlugin("If", "inner blocks");
+        plugin = ComponentPluginFactories.createIfComponentPlugin("If", "inner blocks");
         addComponent(plugin);
-        addComponent(new SimpleComponentPlugin("Method", "inner blocks", new MethodComponent(), null));
-        
+        plugin = ComponentPluginFactories.createForComponentPlugin("For", "inner blocks");
+        addComponent(plugin);
+        plugin = ComponentPluginFactories.createInputValue("Input", "IO Operations");
+        addComponent(plugin);
+        addComponent(ComponentPluginFactories.createComment("Comment", "Others"));
+        addComponent(ComponentPluginFactories.createCallMethod("Call Method", "Others"));
+        addComponent(ComponentPluginFactories.createOutput("Output", "IO Operations"));
+        addComponent(ComponentPluginFactories.createWhileComponentPlugin("While", "inner blocks"));
+    
     }
     public void addComponent(ComponentPlugin plugin){
         pluginList.add(plugin);

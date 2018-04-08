@@ -12,6 +12,7 @@ import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentsModel;
 import icraus.Components.IllegalComponent;
 import icraus.Components.MethodComponent;
+import icraus.Components.ProjectComponent;
 import icraus.Components.SimpleComponent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -97,7 +98,7 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            //FIXME fix this
+                            //FIXME fix this can't get right foucs
                             if (cell.getIndex() != 0) {
                                 cell.getItem().getUiDelegate().get().requestFocus();
                             }
@@ -144,22 +145,18 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
 
     @FXML
     public void removeBlock() throws IllegalComponent, ComponentNotFoundException {
-//        TextInputDialog d = new TextInputDialog("A");
-//        String name = d.showAndWait().get();
-        uuid = model.addClass("A", "Default");
-
-        MethodComponent c = new MethodComponent("A", "B", "C");
-        model.addMethodByUuid(uuid, c);
-//        projectTree.setRoot(model.toTreeItems());
+        System.out.println(model.addProject("Java Project"));
     }
 
     @FXML
     public void generateCode() {
         String s = "";
         try {
-            for (Component cs : model.toList()) {
-                s += cs.getStatement().get().toText();
-
+            for (ProjectComponent cs : model.toList()) {
+                for(Component c : cs.getChildern())
+                {
+                    s += c.getStatement().get().toText();   
+                }
             }
         } catch (ErrorGenerateCodeException ex) {
             Logger.getLogger(MainIDEController.class

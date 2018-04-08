@@ -2,7 +2,6 @@
 package test;
 
 import icraus.Components.Component;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 public class DeclareVariable extends Item {
@@ -22,9 +21,7 @@ public class DeclareVariable extends Item {
         setContextMenu(new ItemContextMenu(5, getUUID()));
         
         setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY))
-                if (mouseEvent.getClickCount() == 2)
-                    new EditItem(5, getUUID());
+            //FIXME add Handler
         });
     }  
 

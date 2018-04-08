@@ -5,15 +5,8 @@
  */
 package icraus.Components;
 
-import com.icraus.ide.ui.components.DraggableCanvasComponentEventHandler;
-import com.icraus.vpl.codegenerator.CodeBlock;
-import com.icraus.vpl.codegenerator.CodeBlockBody;
-import com.icraus.vpl.codegenerator.IfCodeBlockHead;
 import com.icraus.vpl.codegenerator.Statement;
 import javafx.scene.Node;
-import javafx.scene.control.TreeItem;
-import javafx.scene.input.MouseEvent;
-import test.IfStatement;
 
 /**
  *
@@ -21,26 +14,20 @@ import test.IfStatement;
  */
 public class SimpleComponent extends Component{
 
+    private String type = "";
+
     public SimpleComponent() {
+        
     }
 
     
-    public SimpleComponent(Statement s, Node delegate) {
+    public SimpleComponent(Statement s, Node delegate, String _type) {
         super();
         setStatement(s);
         setUiDelegate(delegate);
+        type = _type;
     }
-    public static Component createIfStatement(){
-        CodeBlock blk = new CodeBlock();
-        blk.setHead(new IfCodeBlockHead());
-        blk.setBody(new CodeBlockBody());
-        SimpleComponent comp = new SimpleComponent(blk, null);
-        IfStatement nod = new IfStatement(comp);
-        nod.addEventFilter(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
-        comp.setUiDelegate(nod);
-        
-        return comp;
-    }
+    
 
     @Override
     public String getType() {
@@ -49,13 +36,7 @@ public class SimpleComponent extends Component{
 
     @Override
     public String toString() {
-        return getType();
-    }
-
-    @Override
-    public TreeItem<Component> toTreeItem() {
-        TreeItem<Component> root = new TreeItem<>(this);
-        return root;
+        return type;
     }
 
 }

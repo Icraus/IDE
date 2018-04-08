@@ -5,36 +5,37 @@
  */
 package icraus.Components;
 
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
-import javafx.scene.input.MouseEvent;
 
 /**
  *
  * @author Shoka
  */
-public class MethodLineLabel extends Label {
+public class MethodLineLabel extends Button {
+
     final private MethodComponent parent;
-    public MethodLineLabel(MethodComponent d){
+
+    public MethodLineLabel(MethodComponent d) {
         super();
         parent = d;
-        setEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            if(e.getClickCount() == 2){
-                Tab t = parent.getTab();
-                t.getTabPane().getSelectionModel().select(t);
-            }
+        setOnAction(e -> {
+            Tab t = parent.getTab();
+            t.getTabPane().getSelectionModel().select(t);
         });
+        
     }
-    public MethodLineLabel(String name, String returnType, String accessType, MethodComponent d){
+
+    public MethodLineLabel(String name, String returnType, String accessType, MethodComponent d) {
         this(d);
         setText(name, returnType, accessType);
-        
+
     }
-    public void setText(String name, String returnType, String accessType){
+
+    public void setText(String name, String returnType, String accessType) {
         //TODO add Access Type Specifier and Parameters
         super.setText(name + " (): " + returnType);
-        
+
     }
-    
-    
+
 }

@@ -5,18 +5,14 @@
  */
 package icraus.Components;
 
-import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
-import javafx.scene.control.Labeled;
 
 /**
  *
  * @author Shoka
  */
-public interface ComponentPlugin {
-    public Component createComponent() throws IllegalComponentInstantiation;
+public interface ComponentPlugin extends ComponentFactory, ComponentInializer{
     public String getSectionName();
     public String getComponentName();
     public Node getIcon();
-    public void initalize(Component n);
 }
