@@ -17,7 +17,9 @@ import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -39,7 +41,8 @@ public class MethodComponent extends Component implements Pageable{
     public MethodComponent() {
         super();
 //FIXME Fix this 
-        setUiDelegate(new MethodContentPane(this));
+        setUiDelegate(new ScrollAnchorPane(this));
+//        setUiDelegate(new MethodLineLabel(this));
         accessType = new SimpleStringProperty();
         methodName = new SimpleStringProperty();
         methodReturnType = new SimpleStringProperty();
@@ -52,6 +55,8 @@ public class MethodComponent extends Component implements Pageable{
         setStatement(blk);
         lineLabel = new MethodLineLabel(this);
         methodTab = new Tab();
+//        methodTab.setContent(new ScrollAnchorPane(this));
+//        methodTab.setContent(new ScrollAnchorPane(this));
         methodTab.contentProperty().bindBidirectional(getUiDelegate());
         createListners();
     }
@@ -185,6 +190,8 @@ public class MethodComponent extends Component implements Pageable{
         String str = methodName.getValue();
         head.setMethodName(str);
         head.setReturnType(methodReturnType.getValue());
+//        lineLabel.setText(str, methodReturnType.getValue(), getAccessType().getValue());
+//        MethodLineLabel lineLabel = (MethodLineLabel) getUiDelegate().get();
         lineLabel.setText(str, methodReturnType.getValue(), getAccessType().getValue());
     }
 }

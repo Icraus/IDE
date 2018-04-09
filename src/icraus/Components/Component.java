@@ -25,7 +25,7 @@ import javafx.scene.control.TreeItem;
  */
 public abstract class Component {
 //TODO set getters and remove setters of props to properties
-//TODO add Component Type
+//TODO DONE add Component Type
     //TODO add xml serializer for saving and closing
     
     private StringProperty uuid;
@@ -156,6 +156,6 @@ public abstract class Component {
     public void setParent(Component _parent) {
         this.parent.setValue(_parent);
     }
-    //TODO add Parent Listner for each addition in children
+    //TODO DONE add Parent Listner for each addition in children
 
 }

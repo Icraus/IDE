@@ -27,7 +27,7 @@ public class ScrollAnchorPane extends ScrollPane implements Selectable {
         parentComponent = _parent;
         setContent(new ContentPane());
         parentComponent.getChildern().addListener((Observable e) -> {
-            drawClasses();
+            drawChildren();
         });
         setId(GUI_QUALIFIER + parentComponent.getUUID());
 
@@ -39,7 +39,7 @@ public class ScrollAnchorPane extends ScrollPane implements Selectable {
         return parentComponent.getUUID();
     }
 
-    private void drawClasses() {
+    protected void drawChildren() {
 
         ObservableList<Component> lst = parentComponent.getChildern();
         ((AnchorPane) getContent()).getChildren().clear();

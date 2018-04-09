@@ -29,7 +29,7 @@ import javafx.scene.input.MouseEvent;
 public class ComponentsModel {
 
     private ObservableMap<String, ProjectComponent> model;
-    private StringProperty currentComponent; //TODO add Current Component Selector
+    private StringProperty currentComponent; //TODO DONE BUT NEEDS FIX add Current Component Selector
     private static ComponentsModel instance = new ComponentsModel();
     private ObjectProperty<TreeItem<Component>> root;
 
@@ -86,18 +86,20 @@ public class ComponentsModel {
 
     protected void addComponentHelper(Component c) {
         if (c instanceof Pageable) {
+            
             Pageable p = (Pageable) c;
             UiManager.getInstance().addTab(p.getTab());
         }
-        //         FIXME addEvenetHandler for new Components 
+        //         FIXME DONE addEvenetHandler for new Components 
         if (c.getUiDelegate().getValue() instanceof DraggableComponent) {
             c.getUiDelegate().getValue().addEventHandler(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
         }
+        
 
     }
 
     public boolean removeComponetByUuid(String uuid) throws ComponentNotFoundException {
-        //TODO add remove by finding
+        //TODO DONE add remove by finding
         Component c = getComponentByUuid(uuid);
         c.getParent().getChildern().remove(c);
         return true;

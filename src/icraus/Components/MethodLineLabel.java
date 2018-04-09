@@ -5,6 +5,7 @@
  */
 package icraus.Components;
 
+import ide.UiManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 
@@ -12,7 +13,7 @@ import javafx.scene.control.Tab;
  *
  * @author Shoka
  */
-public class MethodLineLabel extends Button {
+public class MethodLineLabel extends Button implements Selectable{
 
     final private MethodComponent parent;
 
@@ -20,8 +21,7 @@ public class MethodLineLabel extends Button {
         super();
         parent = d;
         setOnAction(e -> {
-            Tab t = parent.getTab();
-            t.getTabPane().getSelectionModel().select(t);
+            UiManager.getInstance().setCurrentTabByUuid(parent.getUUID());
         });
         
     }
@@ -36,6 +36,11 @@ public class MethodLineLabel extends Button {
         //TODO add Access Type Specifier and Parameters
         super.setText(name + " (): " + returnType);
 
+    }
+
+    @Override
+    public String getParentComponentUuid() {
+        return parent.getUUID();
     }
 
 }

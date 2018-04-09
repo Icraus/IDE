@@ -57,11 +57,12 @@ public class ClassContentPane extends VBox implements Selectable, DraggableCompo
 
     }
 
-    private void drawMethods() {
+    protected void drawMethods() {
         
         methodsVBox.getChildren().clear();
         ObservableList<MethodComponent> lst = parentComponent.getMethodsList();
         for (MethodComponent mc : lst) {
+//            methodsVBox.getChildren().add(mc.getUiDelegate().getValue());
             methodsVBox.getChildren().add(mc.getLineLabel());
         }
     }
@@ -86,6 +87,7 @@ public class ClassContentPane extends VBox implements Selectable, DraggableCompo
             });
         });
         addFieldItem.setOnAction(e -> {
+            //TODO add fields context menu
         });
         menu.getItems().add(addFieldItem);
         menu.getItems().add(removeFieldItem);

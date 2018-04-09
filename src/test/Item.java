@@ -35,7 +35,7 @@ public class Item extends Button implements DraggableComponent, Selectable {
         
         setOnAction((ActionEvent e) -> {
             try {
-                Tab t = UiManager.getInstance().selectTabByUuid(getParentComponentUuid());
+                Tab t = UiManager.getInstance().getTabByUuid(getParentComponentUuid());
                 t.getTabPane().getSelectionModel().select(t);
             } catch (NullPointerException ex) {
                 ex.printStackTrace();

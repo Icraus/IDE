@@ -58,7 +58,7 @@ public class ComponentPluginFactories extends SimpleComponentPlugin {
                     Item nod = new ForLoop(comp); //TODO change For Loop Properties to allow code change
                     nod.addEventFilter(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
                     nod.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                        UiManager.getInstance().selectTabByUuid(comp.getUUID());
+                        UiManager.getInstance().getTabByUuid(comp.getUUID());
                     });
                     comp.setUiDelegate(nod);
 
@@ -114,6 +114,7 @@ public class ComponentPluginFactories extends SimpleComponentPlugin {
                     SimpleComponentTabbed comp = new SimpleComponentTabbed(new WhileCodeBlockHead(), null, "WHILE");
                     WhileLoop nod = new WhileLoop(comp);
                     comp.setUiDelegate(nod);
+                    
                     return comp;
                 },
                 (c) -> {

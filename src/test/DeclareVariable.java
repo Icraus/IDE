@@ -18,11 +18,9 @@ public class DeclareVariable extends Item {
         setMinHeight(40);
         getStyleClass().add("declareVariableStyle");
         
-        setContextMenu(new ItemContextMenu(5, getUUID()));
-        
-        setOnMouseClicked((MouseEvent mouseEvent) -> {
+       
             //FIXME add Handler
-        });
+       
     }  
 
     public void setType(String type) {

@@ -101,7 +101,7 @@ public class ProjectComponent extends Component implements Pageable {
     }
 
     public boolean removeComponetByUuid(String uuid) throws ComponentNotFoundException {
-        //TODO add remove by finding
+        //TODO DONE add remove by finding
         ClassComponent comp = (ClassComponent) getComponentByUuid(uuid);
         if (comp != null) {
             return true;

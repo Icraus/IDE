@@ -53,7 +53,7 @@ public class MethodContentPane extends ScrollPane implements Selectable{
 
     }
 
-    private void drawContent() {
+    protected void drawContent() {
         pane.getChildren().clear();
         ObservableList<Node> lst = pane.getChildren();
         for (Component c : parent.getChildern()) {

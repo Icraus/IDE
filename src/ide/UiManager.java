@@ -5,13 +5,10 @@
  */
 package ide;
 
-import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentsModel;
 import icraus.Components.Pageable;
-import icraus.Components.ScrollAnchorPane;
 import icraus.Components.Selectable;
-import icraus.Components.event.CanvasDragEventHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.Observable;
@@ -20,8 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.DragEvent;
-import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -70,7 +65,7 @@ public class UiManager {
         methodsTabs.add(t);
     }
 
-    public Tab selectTabByUuid(String uuid) {
+    public Tab getTabByUuid(String uuid) {
         try {
             Pageable comp = (Pageable) ComponentsModel.getInstance().getComponentByUuid(uuid);
             Tab methodTab = comp.getTab();
@@ -79,6 +74,9 @@ public class UiManager {
             Logger.getLogger(UiManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    public void setCurrentTabByUuid(String uuid){
+        getMainTabPane().getSelectionModel().select(getTabByUuid(uuid));
     }
 
     public Tab getCurrentTab() {
