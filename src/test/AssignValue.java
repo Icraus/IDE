@@ -15,8 +15,9 @@ public class AssignValue extends Item {
         setText("Assign");
         setMinWidth(120);
         setMinHeight(40);
-        getStyleClass().add("assignValueStyle");
-       
+        String css = getClass().getResource("assignStyle.css").toExternalForm();
+        getStylesheets().add(css);
+        getStyleClass().add("assignValue");
         createContextMenu();
     }  
        

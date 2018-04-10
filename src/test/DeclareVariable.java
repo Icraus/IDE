@@ -16,8 +16,9 @@ public class DeclareVariable extends Item {
         setText("Declare");
         setMinWidth(120);
         setMinHeight(40);
-        getStyleClass().add("declareVariableStyle");
-        
+        String css = getClass().getResource("declareStyle.css").toExternalForm();
+        getStylesheets().add(css);
+        getStyleClass().add("declareVariable");
        
             //FIXME add Handler
        

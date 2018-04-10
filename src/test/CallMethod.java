@@ -1,6 +1,7 @@
 
 package test;
 
+import com.icraus.vpl.codegenerator.GrammerConstants;
 import com.icraus.vpl.codegenerator.SimpleStatement;
 import com.icraus.vpl.codegenerator.Statement;
 import icraus.Components.Component;
@@ -22,6 +23,9 @@ public class CallMethod extends Item {
         setMinWidth(120);
         setMinHeight(40);
         getStyleClass().add("callMethodStyle");
+        String css = getClass().getResource("callStyle.css").toExternalForm();
+        getStylesheets().add(css);
+        getStyleClass().add("callMethod");
         d = new EditCallMethodWindowBase();
         setOnAction(e ->{
             Stage stg = createDialog(d);
@@ -43,7 +47,7 @@ public class CallMethod extends Item {
 
     private void parametersChanged(String text) {
         SimpleStatement st = (SimpleStatement) getParentComponent().getStatement().get();
-        st.setStatementString(text);
+        st.setStatementString(text + GrammerConstants.OP_END_LINE);
     }
 
     

@@ -11,36 +11,44 @@ and open the template in the editor.
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="327.0" prefWidth="202.0" styleClass="class-content-pane" stylesheets="@styleclass.css" type="VBox" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="327.0" prefWidth="202.0" stylesheets="@classStyle.css" type="VBox" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox fx:id="headVBox" alignment="CENTER" prefHeight="115.0" prefWidth="202.0" spacing="20.0">
+        <VBox fx:id="headVBox" alignment="CENTER" prefHeight="115.0" prefWidth="202.0" spacing="20.0" style="-fx-background-color: #2d6c18;">
          <children>
-            <Label fx:id="classNameLabel" alignment="CENTER" contentDisplay="CENTER" text="Class Name" textAlignment="CENTER">
+            <Label fx:id="classNameLabel" alignment="CENTER" contentDisplay="CENTER" style="-fx-text-fill: #ffffff;" text="Class Name" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font></Label>
          </children></VBox>
-        <VBox fx:id="fieldsVBox" prefHeight="200.0" prefWidth="178.0" spacing="5.0">
-         <children>
-            <Label fx:id="classAttributesLabel" alignment="CENTER" contentDisplay="CENTER" text="Attributes" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-         </children>
+      <Label fx:id="classAttributesLabel1" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="225.0" style="-fx-text-fill: #ffff00; -fx-background-color: #3e9222;" text="Attributes" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
          <padding>
             <Insets left="5.0" />
-         </padding></VBox>
-        <VBox fx:id="methodsVBox" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-         <children>
-            <Label fx:id="classMethodsLabel" alignment="CENTER" contentDisplay="CENTER" text="Methods" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-         </children>
+         </padding>
+      </Label>
+        <VBox fx:id="fieldsVBox" prefHeight="200.0" prefWidth="178.0" spacing="5.0" style="-fx-background-color: #3e9222;">
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></VBox>
+      <Label fx:id="classMethodsLabel1" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="265.0" style="-fx-text-fill: #333333; -fx-background-color: #60d13a;" text="Methods" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
          <padding>
             <Insets left="5.0" />
-         </padding></VBox>
+         </padding>
+      </Label>
+        <VBox fx:id="methodsVBox" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: #60d13a;" styleClass="methods">
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></VBox>
     </children>
 </fx:root>

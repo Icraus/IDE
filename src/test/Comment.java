@@ -15,8 +15,9 @@ public class Comment extends Item {
         setText("Comment");
         setMinWidth(120);
         setMinHeight(40);
-        getStyleClass().add("commentStyle");
-
+        String css = getClass().getResource("commentStyle.css").toExternalForm();
+        getStylesheets().add(css);
+        getStyleClass().add("comment");
         setOnAction((e) -> {
             d = new EditCommentWindowBase();
 

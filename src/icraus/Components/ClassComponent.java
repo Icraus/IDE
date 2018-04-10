@@ -60,6 +60,9 @@ public class ClassComponent extends Component {
             methodListChanged();
 //            childrenChanged();
         });
+        packageName.addListener((Observable e) -> {
+            packageNameChanged();
+        });
 
     }
     //TODO Replace it with IOC
@@ -164,6 +167,10 @@ public class ClassComponent extends Component {
         }
         throw new IllegalComponent();
         //TODO add field Component
+    }
+
+    private void packageNameChanged() {
+        head.setPackageName(getPackageName().get());
     }
 
 }

@@ -43,11 +43,14 @@ public class ForLoop extends Item {
         setText("For");
         setMinWidth(120);
         setMinHeight(40);
-        getStyleClass().add("forLoopStyle");
+        String css = getClass().getResource("forStyle.css").toExternalForm();
+        getStylesheets().add(css);
+        getStyleClass().add("forLoop");
         createContextMenu();
         createListeners();
     }
-    private void createContextMenu(){
+
+    private void createContextMenu() {
         MenuItem i = new MenuItem("Set Parameters");
         i.setOnAction((e) -> {
             Stage stg = new Stage();
@@ -63,6 +66,7 @@ public class ForLoop extends Item {
         ContextMenu m = new ContextMenu(i);
         setContextMenu(m);
     }
+
     public void parametersChanged() {
         String cond = condition.getValue();
         String stp = step.getValue();
@@ -92,9 +96,9 @@ public class ForLoop extends Item {
     }
 
     private void createListeners() {
-        condition.addListener(e-> parametersChanged());
-        variable.addListener(e-> parametersChanged());
-        start.addListener(e-> parametersChanged());
-        step.addListener(e-> parametersChanged());
+        condition.addListener(e -> parametersChanged());
+        variable.addListener(e -> parametersChanged());
+        start.addListener(e -> parametersChanged());
+        step.addListener(e -> parametersChanged());
     }
 }

@@ -37,12 +37,9 @@ public class IfStatement extends Item {
         setText("If");
         setMinHeight(80);
         setMinWidth(80);
-//        setStyle("-fx-background-color: 'red'");
-        setStyle("-fx-background-color: #ff0000;\n"
-                + "-fx-font: 20px System;\n"
-                + "-fx-font-weight: Bold;\n"
-                + "-fx-shape: \"M0 50 L50 0 L100 50 L50 100 Z\";");
-//        getStylesheets().add(getClass().getResource("MainCSS.css").toExternalForm());
+        String css = getClass().getResource("ifStyle.css").toExternalForm();
+        getStylesheets().add(css);
+        getStyleClass().add("ifStatement");
         createContextMenu();
     }
 

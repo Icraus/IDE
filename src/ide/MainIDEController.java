@@ -6,7 +6,10 @@
 package ide;
 
 import com.icraus.vpl.codegenerator.ErrorGenerateCodeException;
+import com.icraus.vpl.codegenerator.parsers.GlobalGrammerParser;
+import com.icraus.vpl.codegenerator.parsers.JavaCodeGenerator;
 import com.sun.javafx.collections.ObservableListWrapper;
+import icraus.Components.ClassComponent;
 import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentsModel;
@@ -151,11 +154,14 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
     @FXML
     public void generateCode() {
         String s = "";
+        JavaCodeGenerator g = new JavaCodeGenerator();
         try {
             for (ProjectComponent cs : model.toList()) {
-                for(Component c : cs.getChildern())
-                {
-                    s += c.getStatement().get().toText();   
+                for (Component c : cs.getChildern()) {
+                    ClassComponent cc = (ClassComponent) c;
+                    String txt = cc.getStatement().get().toText();
+                    g.generateClass("C:/1", cc.getClassName().get(), txt);
+                    s += c.getStatement().get().toText();
                 }
             }
         } catch (ErrorGenerateCodeException ex) {
@@ -163,7 +169,9 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
                     .getName()).log(Level.SEVERE, null, ex);
 //            ex.printStackTrace();
         }
-        System.out.println(s);
+        JavaCodeGenerator jc = new JavaCodeGenerator();
+        String ss = jc.generateCode(s);
+        System.out.println(ss);
     }
 
     public void drawClasses() {

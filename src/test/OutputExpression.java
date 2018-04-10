@@ -8,13 +8,15 @@ import javafx.stage.Stage;
 public class OutputExpression extends Item {
 
     private String expression;
-    
+
     public OutputExpression(SimpleComponent parent) {
         super(parent);
         setText("Output");
         setMinWidth(120);
         setMinHeight(40);
-        getStyleClass().add("outputExpressionStyle");
+        String css = getClass().getResource("outputStyle.css").toExternalForm();
+        getStylesheets().add(css);
+        getStyleClass().add("outputExpression");
         setOnAction(e -> {
             EditOutputExpressionWindowBase d = new EditOutputExpressionWindowBase();
             Stage stg = createDialog(d);
