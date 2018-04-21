@@ -54,7 +54,7 @@ public class InputValue extends Item {
 
     private void parametersChanged(String varName) {
         SimpleStatement statement = (SimpleStatement) getParentComponent().getStatement().getValue();
-        statement.setStatementString("String" + varName + " = " + GrammerConstants.STAT_INPUT_OP + GrammerConstants.OP_END_LINE);
+        statement.setStatementString("String" + " " + varName + " = " + GrammerConstants.STAT_INPUT_OP + GrammerConstants.OP_END_LINE);
     }
 
 }

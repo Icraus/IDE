@@ -3,13 +3,7 @@ package test;
 
 import com.icraus.vpl.codegenerator.GrammerConstants;
 import com.icraus.vpl.codegenerator.SimpleStatement;
-import com.icraus.vpl.codegenerator.Statement;
-import icraus.Components.Component;
 import icraus.Components.SimpleComponent;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class CallMethod extends Item {

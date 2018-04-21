@@ -180,5 +180,13 @@ public class ProjectComponent extends Component implements Pageable {
         return projectMainTab.getValue();
     }
 
+    public StringProperty getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(StringProperty projectName) {
+        this.projectName = projectName;
+    }
+
     
 }

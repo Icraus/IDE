@@ -22,8 +22,8 @@ public class ScrollAnchorPane extends ScrollPane implements Selectable {
     private Component parentComponent;
 
     public ScrollAnchorPane(Component _parent) {
-        setWidth(2000);
-        setHeight(2000);
+        setPrefWidth(USE_PREF_SIZE);
+        setPrefHeight(USE_PREF_SIZE);
         parentComponent = _parent;
         setContent(new ContentPane());
         parentComponent.getChildern().addListener((Observable e) -> {
@@ -55,6 +55,8 @@ class ContentPane extends AnchorPane {
     public ContentPane() {
         setWidth(2000);
         setHeight(2000);
+        setPrefHeight(USE_PREF_SIZE);
+        setPrefWidth(USE_PREF_SIZE);
     }
 
 }

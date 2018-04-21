@@ -6,7 +6,6 @@
 package icraus.Components;
 
 import icraus.Components.event.CanvasDragEventHandler;
-import ide.MainIDEController;
 import static ide.UiManager.GUI_QUALIFIER;
 import java.io.IOException;
 import javafx.beans.Observable;

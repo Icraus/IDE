@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="609.0" prefWidth="905.0" styleClass="workspace" stylesheets="@ideCSS.css" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="609.0" prefWidth="905.0" styleClass="workspace" stylesheets="@ideCSS.css" type="BorderPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     
 <!--<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ide.MainIDEController">-->
    <top>
@@ -22,12 +22,13 @@
               <menus>
                 <Menu mnemonicParsing="false" styleClass="menu" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#createNewProject" text="New Project" />
+                    <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Close" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="menu" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" onAction="#removeComponent" text="Delete" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="menu" text="Help">
@@ -39,9 +40,9 @@
             </MenuBar>
             <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #666666;" styleClass="toolBar">
               <items>
-                <Button mnemonicParsing="false" styleClass="loadTreeButton" text="     load tree" textFill="WHITE" />
+                <Button mnemonicParsing="false" onAction="#createNewProject" styleClass="loadTreeButton" text="     New Project" textFill="WHITE" />
                   <Button fx:id="bt2" mnemonicParsing="false" onAction="#addIfStatment" styleClass="createLinkButton" text="     create link" textFill="WHITE" />
-                  <Button mnemonicParsing="false" onAction="#removeBlock" styleClass="removeButton" text="     remove" textFill="WHITE" />
+                  <Button mnemonicParsing="false" onAction="#removeComponent" styleClass="removeButton" text="     remove" textFill="WHITE" />
                   <Button fx:id="generateCodeButton" mnemonicParsing="false" onAction="#generateCode" styleClass="runButton" text="     Run" textFill="WHITE" />
               </items>
             </ToolBar>

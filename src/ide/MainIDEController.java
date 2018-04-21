@@ -6,37 +6,33 @@
 package ide;
 
 import com.icraus.vpl.codegenerator.ErrorGenerateCodeException;
-import com.icraus.vpl.codegenerator.parsers.GlobalGrammerParser;
 import com.icraus.vpl.codegenerator.parsers.JavaCodeGenerator;
-import com.sun.javafx.collections.ObservableListWrapper;
 import icraus.Components.ClassComponent;
 import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentsModel;
 import icraus.Components.IllegalComponent;
-import icraus.Components.MethodComponent;
 import icraus.Components.ProjectComponent;
-import icraus.Components.SimpleComponent;
+import icraus.Components.Selectable;
+import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Tab;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -48,14 +44,13 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
 
     ComponentsModel model = ComponentsModel.getInstance();
     private static MainIDEController instance = new MainIDEController();
-//    @FXML
-//    private TabPane mainTabPane;
+    private JavaCodeGenerator jc = new JavaCodeGenerator();
+
     @FXML
     private VBox libraryVBox;
     @FXML
     TreeView<Component> projectTree;
-//    @FXML
-//    private Pane canvas;
+
     @FXML
     private BorderPane mainPane;
     @FXML
@@ -64,12 +59,10 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
     private Button bt2;
     @FXML
     private Button generateCodeButton;
-    ObservableList<Component> lst = new ObservableListWrapper<>(new ArrayList<>());
 
     public static MainIDEController getInstance() {
         return instance;
     }
-    private String uuid;
 
     private MainIDEController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainIDE.fxml"));
@@ -78,6 +71,7 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
 
         try {
             fxmlLoader.load();
+
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -114,53 +108,72 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
         });
         projectTree.rootProperty().bind(model.treeItemsProperty());
         mainPane.centerProperty().setValue(UiManager.getInstance().getMainTabPane());
+
     }
 
     @FXML
     private void addIfStatment() {
-//        String str = model.getAllMethods().get(0).getUUID();
-//        System.out.println(str);
-//        
-//        Node lookup = UiManager.getInstance().getMainTabPane().lookup("#GUI" + str);
-//        lookup.setStyle("-fx-background-color: 'red'");
-//        Component com = SimpleComponent.createIfStatement();
-//        String ty = projectTree.getSelectionModel().getSelectedItem().getValue().getUUID();
-//
-//        try {
-//            model.addComponent(ty, com);
-//        } catch (ComponentNotFoundException ex) {
-//            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IllegalComponent ex) {
-//            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
     }
 
     @FXML
     public void initialize() {
         ComponentListUi comps = new ComponentListUi();
-        model.getModel().addListener((Observable e) -> {
-            drawClasses();
-        });
         libraryVBox.getChildren().add(comps);
-//        canvas.addEventHandler(DragEvent.ANY, new CanvasDragEventHandler());
+        sceneProperty().addListener(c -> {
+            getScene().focusOwnerProperty().addListener((Observable e) -> {
+                Node f = getScene().getFocusOwner();
+                if (f instanceof Selectable) {
+                    Selectable currentItem = (Selectable) f;
+                    model.setCurrentComponent(currentItem.getParentComponentUuid());
+                    
+                }
 
+            });
+        });
     }
 
     @FXML
-    public void removeBlock() throws IllegalComponent, ComponentNotFoundException {
-        System.out.println(model.addProject("Java Project"));
+    public void createNewProject() throws IllegalComponent, ComponentNotFoundException {
+        new TextInputDialog().showAndWait().ifPresent(e -> {
+            model.addProject(e);
+        });
+    }
+
+    @FXML
+    public void calculateTree() {
+        model.calculateRoot();
+        projectTree.setRoot(model.treeItemsProperty().get());
+    }
+    @FXML
+    public void closeApp(){
+        Platform.exit();
+    }
+    @FXML
+    public void removeComponent() {
+        try {
+            model.removeComponetByUuid(model.getCurrentComponent());
+        } catch (ComponentNotFoundException ex) {
+            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//        scene.get
     }
 
     @FXML
     public void generateCode() {
         String s = "";
         JavaCodeGenerator g = new JavaCodeGenerator();
+        DirectoryChooser fc = new DirectoryChooser();
+
+        File d = fc.showDialog(null);
+
         try {
             for (ProjectComponent cs : model.toList()) {
                 for (Component c : cs.getChildern()) {
                     ClassComponent cc = (ClassComponent) c;
                     String txt = cc.getStatement().get().toText();
-                    g.generateClass("C:/1", cc.getClassName().get(), txt);
+                    g.generateClass(d.getAbsolutePath(), cc.getClassName().get(), txt);
                     s += c.getStatement().get().toText();
                 }
             }
@@ -169,16 +182,8 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
                     .getName()).log(Level.SEVERE, null, ex);
 //            ex.printStackTrace();
         }
-        JavaCodeGenerator jc = new JavaCodeGenerator();
         String ss = jc.generateCode(s);
         System.out.println(ss);
-    }
-
-    public void drawClasses() {
-//        canvas.getChildren().clear();
-//        for (Component c : model.toList()) {
-//            canvas.getChildren().add(c.getUiDelegate().get());
-//        }
     }
 
 }

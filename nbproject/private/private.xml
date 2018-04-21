@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="Graduation_Project">
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/SimpleComponentPlugin.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/createLink.png</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/MethodContentPane.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/EditInputValueWindowBase.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/IllegalComponent.java</file>
@@ -14,12 +15,15 @@
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ScrollAnchorPane.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/MainIDEController.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ClassComponent.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/loadTree.png</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/classStyle.css</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/SimpleComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/styleclass.css</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/event/DraggableCanvasComponentEventHandler.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/LinkComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/MainApplication.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/ComponentListUi.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/run.png</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/InputValue.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/ItemContextMenu.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/DraggableComponent.java</file>
@@ -43,6 +47,7 @@
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/MethodComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ClassContentPane.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/LinkNode.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/ideCSS.css</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/event/CanvasDragEventHandler.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/EditOutputExpressionWindowBase.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/CallMethod.java</file>
@@ -58,9 +63,11 @@
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/IllegalComponentInstantiation.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ComponentPluginFactories.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/ForLoop.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/nbproject/jfx-impl.xml</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/OutputExpression.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/IfStatement.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/EditCommentWindowBase.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/remove.png</file>
         </group>
     </open-files>
 </project-private>

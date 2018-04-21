@@ -38,6 +38,6 @@ public class OutputExpression extends Item {
 
     private void parametersChanged(String text) {
         SimpleStatement stmnt = (SimpleStatement) getParentComponent().getStatement().get();
-        stmnt.setStatementString(GrammerConstants.STAT_OUTPUT_OP + GrammerConstants.OP_PARAN_START + text + GrammerConstants.OP_PARAN_END);
+        stmnt.setStatementString(GrammerConstants.STAT_OUTPUT_OP + GrammerConstants.OP_PARAN_START + text + GrammerConstants.OP_PARAN_END + GrammerConstants.OP_END_LINE);
     }
 }

@@ -6,7 +6,6 @@
 package ide;
 
 import com.sun.javafx.collections.ObservableMapWrapper;
-import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentPlugin;
 import icraus.Components.ComponentsModel;
@@ -15,8 +14,6 @@ import icraus.Components.IllegalComponentInstantiation;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
@@ -113,7 +110,9 @@ public class ComponentListUi extends VBox implements MapChangeListener<Object, O
             cu = sections.get(section);
         } else {
             cu = new TitledPane();
-            cu.setContent(new VBox());
+            VBox box = new VBox();
+            box.setSpacing(10);
+            cu.setContent(box);
             sections.put(section, cu);
         }
         return cu;

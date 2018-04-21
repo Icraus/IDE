@@ -86,7 +86,7 @@ public class ComponentsModel {
 
     protected void addComponentHelper(Component c) {
         if (c instanceof Pageable) {
-            
+
             Pageable p = (Pageable) c;
             UiManager.getInstance().addTab(p.getTab());
         }
@@ -94,7 +94,6 @@ public class ComponentsModel {
         if (c.getUiDelegate().getValue() instanceof DraggableComponent) {
             c.getUiDelegate().getValue().addEventHandler(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
         }
-        
 
     }
 
@@ -149,23 +148,20 @@ public class ComponentsModel {
         root.setValue(new TreeItem<>(new SimpleComponent()));
 
         for (Component c : lst) {
-            TreeItem<Component> itm = c.toTreeItem();
-            root.get().getChildren().add(itm);
+            root.get().getChildren().add(calculateRootHelper(c));
         }
+    }
 
-//        ObservableList<ProjectComponent> lst = toList(); //TODO migrate to single root calculation
-//        root.setValue(new TreeItem<>(new SimpleComponent()));
-//        for (Component c : lst) {
-//            TreeItem<Component> itmRoot = new TreeItem<>(c);
-//            Queue<Component> q = new LinkedList<>();
-//            q.addAll(c.getChildern());
-//            while (!q.isEmpty()) {
-//                Component cin = q.poll();
-//                TreeItem<Component> itm = new TreeItem<>(cin);
-//                q.addAll(cin.getChildern());
-//                itmRoot.getChildren().add(itm);
-//            }
-//        }
+    private TreeItem<Component> calculateRootHelper(Component c) {
+        TreeItem<Component> root = new TreeItem<>(c);
+        if (c.getChildern().isEmpty()) {
+            return root;
+        } else {
+            for (Component child : c.getChildern()) {
+                root.getChildren().add(calculateRootHelper(child));
+            }
+            return root;
+        }
     }
 
     public ObservableList<ProjectComponent> toList() {
