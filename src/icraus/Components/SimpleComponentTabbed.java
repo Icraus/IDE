@@ -72,6 +72,11 @@ public class SimpleComponentTabbed extends SimpleComponent implements Pageable {
     }
 
     @Override
+    public int getFlags() {
+        return super.getFlags() | ComponentFlags.PAGEABLE_FLAG; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
     public Tab getTab() {
         return tab;
     }

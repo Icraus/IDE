@@ -7,6 +7,7 @@ package icraus.database;
 
 import com.sun.javafx.collections.ObservableListWrapper;
 import icraus.Components.Component;
+import icraus.Components.ComponentFlags;
 import icraus.Components.IllegalComponent;
 import icraus.database.ui.TablePane;
 import java.util.ArrayList;
@@ -40,6 +41,11 @@ public class DatabaseTableComponent extends Component {
         return super.addComponent(c);
     }
 
+    @Override
+    public int getFlags() {
+        return super.getFlags()| ComponentFlags.CALLABLE_FLAG | ComponentFlags.DRAGGABLE_FLAG; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
     public String toString() {
         return getTableName();

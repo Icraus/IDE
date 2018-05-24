@@ -56,15 +56,16 @@ public abstract class Component {
         root = new SimpleObjectProperty<>(new TreeItem<Component>(this));
         uuid.setValue(getType() + UUID.randomUUID().toString());
     }
-
+    
+    
     @Override
     public abstract String toString();
     
     public abstract String getType();
 
-//    public int getFlags(){ //TODO migrate to flags
-//        return 0 | 1;
-//    }
+    public int getFlags(){ //TODO migrate to flags
+        return ComponentFlags.INSERTABLE_FLAG | ComponentFlags.SELECTABLE_FLAG | ComponentFlags.REMOVABLE_FLAG;
+    }
     
     public ObjectProperty<Statement> getStatement() {
         return statement;

@@ -7,6 +7,7 @@ package icraus.database;
 
 import com.sun.javafx.collections.ObservableListWrapper;
 import icraus.Components.Component;
+import icraus.Components.ComponentFlags;
 import icraus.Components.IllegalComponent;
 import icraus.Components.Pageable;
 import icraus.Components.ScrollAnchorPane;
@@ -96,6 +97,11 @@ public class ConnectDatabaseComponent extends Component implements Pageable {
 //TODO add connect Statemnt 
     }
 
+    @Override
+    public int getFlags() {
+        return super.getFlags() | ComponentFlags.CALLABLE_FLAG | ComponentFlags.PAGEABLE_FLAG | ComponentFlags.DRAGGABLE_FLAG; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
     public String addComponent(Component c) throws IllegalComponent {
         if (c.getType() != DATABAASE_TABLE_TYPE) {

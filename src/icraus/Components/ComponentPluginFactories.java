@@ -91,6 +91,7 @@ public class ComponentPluginFactories extends SimpleComponentPlugin {
         return new SimpleComponentPlugin(name, section, null, () -> {
             SimpleStatement s = new SimpleStatement("");
             SimpleComponent c = new SimpleComponent(s, null, "CallMethod");
+//            c.setUserFlags(ComponentFlags.DRAGGABLE_FLAG);
             c.setUiDelegate(new CallMethod(c));
             return c;
         });

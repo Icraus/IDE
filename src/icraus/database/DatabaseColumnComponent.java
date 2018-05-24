@@ -7,6 +7,7 @@ package icraus.database;
 
 import com.icraus.vpl.codegenerator.SimpleStatement;
 import icraus.Components.Component;
+import icraus.Components.ComponentFlags;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -87,6 +88,12 @@ public class DatabaseColumnComponent extends Component {
         return temp;
     }
 
+    @Override
+    public int getFlags() {
+        return super.getFlags() | ComponentFlags.CALLABLE_FLAG; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     @Override
     public String toString() {
         return getColumnName();

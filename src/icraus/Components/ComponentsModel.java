@@ -116,13 +116,13 @@ public class ComponentsModel {
         c.getChildern().addListener((Observable e) -> {
             ComponentsModel.getInstance().calculateRoot();//FIXME calculate root 
         });
-        if (c instanceof Pageable) {
+        if ((c.getFlags() & ComponentFlags.PAGEABLE_FLAG) > 0) {
 
             Pageable p = (Pageable) c;
             UiManager.getInstance().addTab(p.getTab());
         }
-        //         FIXME DONE addEvenetHandler for new Components 
-        if (c.getUiDelegate().getValue() instanceof DraggableComponent) {
+        // c.getUiDelegate().getValue() instanceof DraggableComponent        FIXME DONE addEvenetHandler for new Components 
+        if ((c.getFlags() & ComponentFlags.DRAGGABLE_FLAG) > 0) {
             c.getUiDelegate().getValue().addEventHandler(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
         }
 

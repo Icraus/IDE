@@ -48,6 +48,12 @@ public class ClassComponent extends Component {
         this.packageName.setValue(packageName);
 
     }
+
+    @Override
+    public int getFlags() {
+        return super.getFlags() | ComponentFlags.DRAGGABLE_FLAG; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     protected void createListners() {
         className.addListener(e -> {
             changeClassHead();

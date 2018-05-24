@@ -68,6 +68,11 @@ public class MethodComponent extends Component implements Pageable{
         setAccessType(_access);
     }
 
+    @Override
+    public int getFlags() {
+        return super.getFlags() | ComponentFlags.CALLABLE_FLAG | ComponentFlags.PAGEABLE_FLAG; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public StringProperty getMethodName() {
         return methodName;
     }

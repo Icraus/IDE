@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="IDE.jar" size="233574" download="eager" />
+    <jar href="IDE.jar" size="229316" download="eager" />
     <jar href="lib\JavaPluginsApi.jar" size="11000" download="eager" />
     <jar href="lib\VPLCodeGeneration.jar" size="51404" download="eager" />
   </resources>
