@@ -9,6 +9,7 @@ import icraus.Components.event.CanvasDragEventHandler;
 import static ide.UiManager.GUI_QUALIFIER;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,8 +44,14 @@ public class ScrollAnchorPane extends ScrollPane implements Selectable {
 
         ObservableList<Component> lst = parentComponent.getChildern();
         ((AnchorPane) getContent()).getChildren().clear();
+        double y = 20;
+        double x = 150;
         for (Component c : lst) {
-            ((AnchorPane) getContent()).getChildren().add(c.getUiDelegate().getValue());
+            Node value = c.getUiDelegate().getValue();
+            value.setLayoutY(y);
+            value.setLayoutX(x);
+            ((AnchorPane) getContent()).getChildren().add(value);
+            y += 100;
         }
 
     }

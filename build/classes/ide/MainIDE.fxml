@@ -44,6 +44,7 @@
                   <Button fx:id="bt2" mnemonicParsing="false" onAction="#addIfStatment" styleClass="createLinkButton" text="     create link" textFill="WHITE" />
                   <Button mnemonicParsing="false" onAction="#removeComponent" styleClass="removeButton" text="     remove" textFill="WHITE" />
                   <Button fx:id="generateCodeButton" mnemonicParsing="false" onAction="#generateCode" styleClass="runButton" text="     Run" textFill="WHITE" />
+                  <Button mnemonicParsing="false" onAction="#testAdd" text="test" />
               </items>
             </ToolBar>
          </children>

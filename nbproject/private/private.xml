@@ -8,31 +8,44 @@
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/MethodContentPane.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/EditInputValueWindowBase.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/IllegalComponent.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/ui/InsertUi.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/DatabaseTableComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ClassContentPane.fxml</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/DeleteComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ComponentNotFoundException.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/EditForLoopWindowBase.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/InsertStatement.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/Comment.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ScrollAnchorPane.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/MainIDEController.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ClassComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/loadTree.png</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/DatabaseColumnComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/classStyle.css</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/SimpleComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/styleclass.css</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/DeleteUi.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/event/DraggableCanvasComponentEventHandler.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/LinkComponent.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/CreateDatabaseStatement.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/MainApplication.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/ComponentListUi.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/ConnectDatabaseComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/run.png</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/InputValue.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/ItemContextMenu.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/ui/CreateTablePane.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/DraggableComponent.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ComponentFlags.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/ui/TablePane.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/MainIDE.fxml</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/DatabaseFactory.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ComponentsModel.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/DeleteStatement.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/Selectable.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/SimpleComponentTabbed.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/UiManager.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/ui/TablePane.fxml</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/ComponentInializer.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/Component.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/Item.java</file>
@@ -58,6 +71,7 @@
             <file>file:/F:/Important/Code/Graduation_Project/IDE/test/icraus/Components/ComponentTest.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/ide/ComponentsManager.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/DoLoop.java</file>
+            <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/database/JavaDatabaseExecutorStatement.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/test/WhileLoop.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/MethodLineLabel.java</file>
             <file>file:/F:/Important/Code/Graduation_Project/IDE/src/icraus/Components/IllegalComponentInstantiation.java</file>

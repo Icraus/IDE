@@ -8,7 +8,8 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="IDE.jar" size="199910" download="eager" />
+    <jar href="IDE.jar" size="233389" download="eager" />
+    <jar href="lib\JavaPluginsApi.jar" size="11000" download="eager" />
     <jar href="lib\VPLCodeGeneration.jar" size="51404" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="IDE" >

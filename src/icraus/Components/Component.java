@@ -10,7 +10,6 @@ import com.sun.javafx.collections.ObservableListWrapper;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
-import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -25,9 +24,9 @@ import javafx.scene.control.TreeItem;
  */
 public abstract class Component {
 //TODO set getters and remove setters of props to properties
+    //TODO change it to use Visitor Pattern
 //TODO DONE add Component Type
     //TODO add xml serializer for saving and closing
-    
     private StringProperty uuid;
     private ObjectProperty<Statement> statement;
     //TODO CHANGE Component Ui Refrence to ID;
@@ -55,9 +54,6 @@ public abstract class Component {
         parent = new SimpleObjectProperty<>();
         childern = new ObservableListWrapper<>(new ArrayList<>());
         root = new SimpleObjectProperty<>(new TreeItem<Component>(this));
-        childern.addListener((Observable e) -> {
-            ComponentsModel.getInstance().calculateRoot();//FIXME calculate root 
-        });
         uuid.setValue(getType() + UUID.randomUUID().toString());
     }
 
@@ -157,5 +153,7 @@ public abstract class Component {
         this.parent.setValue(_parent);
     }
     //TODO DONE add Parent Listner for each addition in children
+
+
 
 }

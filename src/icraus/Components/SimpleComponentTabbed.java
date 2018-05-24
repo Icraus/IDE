@@ -27,7 +27,7 @@ public class SimpleComponentTabbed extends SimpleComponent implements Pageable {
 
     public SimpleComponentTabbed(Statement s, Node delegate, String _type) {
         super(s, delegate, _type);
-        tab = new Tab("", new ScrollAnchorPane(this));
+        tab = new Tab(_type, new ScrollAnchorPane(this));
     }
 
     public SimpleComponentTabbed(CodeBlockHead head, Node delegate, String _type) {

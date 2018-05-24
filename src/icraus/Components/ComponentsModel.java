@@ -9,8 +9,13 @@ import com.icraus.ide.ui.components.DraggableCanvasComponentEventHandler;
 import com.sun.javafx.collections.ObservableListWrapper;
 import com.sun.javafx.collections.ObservableMapWrapper;
 import ide.UiManager;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -65,6 +70,29 @@ public class ComponentsModel {
         }
         throw new ComponentNotFoundException();
     }
+//    public List<Component> getComponentsByProperty(Component c, String prorpetyName, String value){
+//        List<Component> components = new ArrayList<>();
+//        c.getPropreties().get(prorpetyName);
+//     TODO add getComponentsByProperty   
+//    }
+
+    public List<Component> getComponentsByType(String type) {
+        List<Component> components = new ArrayList<>();
+        ObservableList<ProjectComponent> temp = toList();
+        Queue<Component> q = new ArrayDeque<>();
+        q.addAll(temp);
+        while (!q.isEmpty()) {
+            Component c = q.poll();
+            if(c == null)
+                continue;
+            if (c.getType() == type) {
+                components.add(c);
+            }
+            q.addAll(c.getChildern());
+        }
+
+        return components;
+    }
 
     public String addProject(String projectName) {
         ProjectComponent c = new ProjectComponent(projectName);
@@ -81,10 +109,13 @@ public class ComponentsModel {
         }
         parent.addComponent(c);
         addComponentHelper(c);
-        return parent.getUUID();
+        return c.getUUID();
     }
 
     protected void addComponentHelper(Component c) {
+        c.getChildern().addListener((Observable e) -> {
+            ComponentsModel.getInstance().calculateRoot();//FIXME calculate root 
+        });
         if (c instanceof Pageable) {
 
             Pageable p = (Pageable) c;
