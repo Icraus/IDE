@@ -3,7 +3,7 @@ package test;
 import icraus.Components.Component;
 import icraus.Components.DraggableComponent;
 import icraus.Components.Selectable;
-import ide.UiManager;
+import icraus.Components.UiManager;
 import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;

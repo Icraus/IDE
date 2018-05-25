@@ -6,7 +6,7 @@
 package icraus.Components;
 
 import icraus.Components.util.ClassDialogs;
-import static ide.UiManager.GUI_QUALIFIER;
+import static icraus.Components.UiManager.GUI_QUALIFIER;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;

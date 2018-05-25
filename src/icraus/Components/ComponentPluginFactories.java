@@ -9,14 +9,15 @@ import com.icraus.ide.ui.components.DraggableCanvasComponentEventHandler;
 import com.icraus.vpl.codegenerator.CodeBlock;
 import com.icraus.vpl.codegenerator.CodeBlockBody;
 import com.icraus.vpl.codegenerator.ForCodeBlockHead;
+import com.icraus.vpl.codegenerator.IfCodeBlockHead;
 import com.icraus.vpl.codegenerator.SimpleStatement;
 import com.icraus.vpl.codegenerator.WhileCodeBlockHead;
-import ide.UiManager;
 import javafx.beans.Observable;
 import javafx.scene.input.MouseEvent;
 import test.CallMethod;
 import test.Comment;
 import test.ForLoop;
+import test.IfStatement;
 import test.InputValue;
 import test.Item;
 import test.OutputExpression;
@@ -33,10 +34,33 @@ public class ComponentPluginFactories extends SimpleComponentPlugin {
                 sectionName,
                 null,
                 () -> {
-                    return SimpleComponentTabbed.createIfStatement();
+                    return createIfStatement();
                 },
                 (c) -> {
                 });
+    }
+
+    public static Component createIfStatement() {
+
+        CodeBlock blk = new CodeBlock();
+        blk.setHead(new IfCodeBlockHead());
+        blk.setBody(new CodeBlockBody());
+        SimpleComponentTabbed comp = new SimpleComponentTabbed(blk, null, "If_Statment");
+        comp.getChildern().addListener((Observable e) -> {
+            CodeBlockBody body = blk.getBody();
+            body.getChildren().clear();
+            for (Component c : comp.getChildern()) {
+                body.getChildren().add(c.getStatement().get());
+            }
+        });
+        IfStatement nod = new IfStatement(comp);
+//        nod.addEventFilter(MouseEvent.DRAG_DETECTED, new DraggableCanvasComponentEventHandler());
+        nod.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            UiManager.getInstance().getTabByUuid(comp.getUUID());
+        });
+        comp.setUiDelegate(nod);
+
+        return comp;
     }
 
     public static ComponentPlugin createForComponentPlugin(String name, String section) {
@@ -115,7 +139,7 @@ public class ComponentPluginFactories extends SimpleComponentPlugin {
                     SimpleComponentTabbed comp = new SimpleComponentTabbed(new WhileCodeBlockHead(), null, "WHILE");
                     WhileLoop nod = new WhileLoop(comp);
                     comp.setUiDelegate(nod);
-                    
+
                     return comp;
                 },
                 (c) -> {

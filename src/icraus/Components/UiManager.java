@@ -3,12 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ide;
+package icraus.Components;
 
-import icraus.Components.ComponentNotFoundException;
-import icraus.Components.ComponentsModel;
-import icraus.Components.Pageable;
-import icraus.Components.Selectable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.Observable;

@@ -5,6 +5,7 @@
  */
 package ide;
 
+import icraus.Components.UiManager;
 import com.icraus.vpl.codegenerator.ErrorGenerateCodeException;
 import com.icraus.vpl.codegenerator.parsers.JavaCodeGenerator;
 import icraus.Components.ClassComponent;
@@ -12,15 +13,8 @@ import icraus.Components.Component;
 import icraus.Components.ComponentNotFoundException;
 import icraus.Components.ComponentsModel;
 import icraus.Components.IllegalComponent;
-import icraus.Components.IllegalComponentInstantiation;
-import icraus.Components.MethodComponent;
 import icraus.Components.ProjectComponent;
 import icraus.Components.Selectable;
-import icraus.database.ConnectDatabaseComponent;
-import icraus.database.DatabaseColumnComponent;
-import icraus.database.DatabaseFactory;
-import icraus.database.DatabaseTableComponent;
-import icraus.database.DeleteComponent;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -115,7 +109,7 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
         });
         projectTree.rootProperty().bind(model.treeItemsProperty());
         mainPane.centerProperty().setValue(UiManager.getInstance().getMainTabPane());
-
+        
     }
 
     @FXML
@@ -198,39 +192,41 @@ public class MainIDEController extends BorderPane /*implements Initializable */ 
     //REMOVETHIS
     @FXML
     public void testAdd() {
-        String uuid = model.addProject("new Project");
-        try {
-            String ccuuid = model.addComponent(uuid, new ClassComponent("Add", "BB"));
-            ccuuid = model.addComponent(ccuuid, new MethodComponent("AA", "AAB", "AAD"));
-            String ccuuidd = model.addComponent(ccuuid, new ConnectDatabaseComponent());
-            DatabaseTableComponent cc = createDatabaseTable("employee", "id", "String");
-            model.addComponent(ccuuidd, cc);
-            cc = createDatabaseTable("Customer", "text", "integer");
-            model.addComponent(ccuuidd, cc);
-            model.addComponent(ccuuid, DatabaseFactory.createInsertPlugin().createComponent());
-            model.addComponent(ccuuid, new DeleteComponent());
-
-        } catch (ComponentNotFoundException ex) {
-            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalComponent ex) {
-            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalComponentInstantiation ex) {
-            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String uuid = model.addProject("new Project");
+//        try {
+//            String ccuuid = model.addComponent(uuid, new ClassComponent("Add", "BB"));
+//            ccuuid = model.addComponent(ccuuid, new MethodComponent("AA", "AAB", "AAD"));
+//            ConnectDatabaseComponent ss = new ConnectDatabaseComponent();
+//            String ccuuidd = model.addComponent(ccuuid, ss);
+//            DatabaseTableComponent cc = createDatabaseTable("employee", "id", "String");
+//            model.addComponent(ccuuidd, cc);
+//            cc = createDatabaseTable("Customer", "text", "integer");
+//            model.addComponent(ccuuidd, cc);
+//            model.addComponent(ccuuid, DatabaseFactory.createInsertPlugin().createComponent());
+//            model.addComponent(ccuuid, new DeleteComponent());
+//
+//        } catch (ComponentNotFoundException ex) {
+//            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalComponent ex) {
+//            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalComponentInstantiation ex) {
+//            Logger.getLogger(MainIDEController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
-//REMOVETHIS
-    private DatabaseTableComponent createDatabaseTable(String d, String t, String s) throws IllegalComponent {
-        DatabaseTableComponent cc = new DatabaseTableComponent();
-        cc.setTableName(d);
-        DatabaseColumnComponent ss = new DatabaseColumnComponent();
-        ss.setColumnName(t);
-        ss.setColumnType(s);
-        cc.addComponent(ss);
-        ss = new DatabaseColumnComponent();
-        ss.setColumnName(s);
-        ss.setColumnType(t);
-        cc.addComponent(ss);
-        return cc;
-    }
+////REMOVETHIS
+//    private DatabaseTableComponent createDatabaseTable(String d, String t, String s) throws IllegalComponent {
+//        DatabaseTableComponent cc = new DatabaseTableComponent();
+//        cc.setTableName(d);
+//        DatabaseColumnComponent ss = new DatabaseColumnComponent();
+//        ss.setColumnName(t);
+//        ss.setColumnType(s);
+//        cc.addComponent(ss);
+//        ss = new DatabaseColumnComponent();
+//        ss.setColumnName(s);
+//        ss.setColumnType(t);
+//        cc.addComponent(ss);
+//        
+//        return cc;
+//    }
 
 }

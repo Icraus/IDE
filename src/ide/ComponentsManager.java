@@ -8,12 +8,15 @@ package ide;
 import com.plugins.exception.PluginErrorLoadingException;
 import com.plugins.exception.PluginNotFoundException;
 import com.plugins.exception.PluginProperiesNotFound;
+import com.plugins.plugin.PluginList;
 import com.plugins.pluginloader.JarPluginLoader;
 import com.sun.javafx.collections.ObservableListWrapper;
 import icraus.Components.ClassComponent;
 import icraus.Components.ComponentPlugin;
 import icraus.Components.ComponentPluginFactories;
 import icraus.Components.SimpleComponentPlugin;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.DirectoryIteratorException;
 import java.nio.file.DirectoryStream;
@@ -21,7 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
@@ -32,19 +35,36 @@ import javafx.collections.ObservableList;
  */
 public class ComponentsManager {
 
+    public static final String COMPONENT_MANAGER_PROPERTIES = "./component_manager.properties";
+    public static final String PLUGIN_PATH_PROPERTY = "pluginsPath";
+    
     private static ComponentsManager instance = new ComponentsManager();
     private ObservableList<ComponentPlugin> pluginList = new ObservableListWrapper<>(new ArrayList<>());
 
     public static ComponentsManager getInstance() {
         return instance;
     }
+    private Properties managerProperties;
 
     public void loadPluginsDir(String dirName) {
-        Path get = Paths.get("F:\\Important\\Code\\Graduation_Project\\IDE", "plugin");
-        List<Path> result = new ArrayList<>();
+        Path get = Paths.get(dirName);
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(get, "*.{jar}")) {
             for (Path entry : stream) {
-                result.add(entry);
+                JarPluginLoader l = new JarPluginLoader();
+                try {
+                    PluginList p = null;
+                    p = (PluginList) l.loadPlugin(entry.toString());
+                    for (Object t : p) {
+                        addComponent((ComponentPlugin) t);
+                    }
+
+                } catch (PluginNotFoundException ex) {
+                    Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (PluginErrorLoadingException ex) {
+                    Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (PluginProperiesNotFound ex) {
+                    Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } catch (DirectoryIteratorException ex) {
             // I/O error encounted during the iteration, the cause is an IOException
@@ -52,21 +72,17 @@ public class ComponentsManager {
         } catch (IOException ex) {
             Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JarPluginLoader l = new JarPluginLoader();
-        ComponentPlugin p = null;
-        try {
-            p = (ComponentPlugin)l.loadPlugin(result.get(0).toString());
-        } catch (PluginNotFoundException ex) {
-            Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PluginErrorLoadingException ex) {
-            Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PluginProperiesNotFound ex) {
-            Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        addComponent(p);
+
     }
 
     private ComponentsManager() {
+        loadProperties();
+        loadDefaultComponents();
+        loadPluginsDir(managerProperties.getProperty(PLUGIN_PATH_PROPERTY));
+
+    }
+
+    private void loadDefaultComponents() {
         ComponentPlugin plugin = new SimpleComponentPlugin("Class", "Containers", new ClassComponent(), null);
         addComponent(plugin);
         plugin = ComponentPluginFactories.createIfComponentPlugin("If", "inner blocks");
@@ -79,9 +95,6 @@ public class ComponentsManager {
         addComponent(ComponentPluginFactories.createCallMethod("Call Method", "Others"));
         addComponent(ComponentPluginFactories.createOutput("Output", "IO Operations"));
         addComponent(ComponentPluginFactories.createWhileComponentPlugin("While", "inner blocks"));
-//        addComponent(DatabaseFactory.createInsertPlugin());
-        loadPluginsDir(null);
-
     }
 
     public void addComponent(ComponentPlugin plugin) {
@@ -90,6 +103,22 @@ public class ComponentsManager {
 
     public ObservableList<ComponentPlugin> getPluginList() {
         return pluginList;
+    }
+
+    private void loadProperties() {
+        managerProperties = new Properties();
+        try (FileInputStream f = new FileInputStream(COMPONENT_MANAGER_PROPERTIES)) {
+            managerProperties.load(f);
+            return;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ComponentsManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Properties getManagerProperties() {
+        return managerProperties;
     }
 
 }

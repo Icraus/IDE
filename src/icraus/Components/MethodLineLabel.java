@@ -5,7 +5,6 @@
  */
 package icraus.Components;
 
-import ide.UiManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 
